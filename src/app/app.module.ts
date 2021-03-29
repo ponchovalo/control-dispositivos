@@ -7,6 +7,11 @@ import { ImpresorasModule } from './impresoras/impresoras.module';
 import { SharedModule } from './shared/shared.module';
 import { DashBoardModule } from './dash-board/dash-board.module';
 
+//Prime Modules
+
+import {ButtonModule} from 'primeng/button';
+import {CardModule} from 'primeng/card';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,6 +19,8 @@ import { DashBoardModule } from './dash-board/dash-board.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ButtonModule,
+    CardModule,
     SharedModule,
     ImpresorasModule,
     DashBoardModule
