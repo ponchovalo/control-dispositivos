@@ -9,8 +9,8 @@ import { DashBoardModule } from './dash-board/dash-board.module';
 
 //Prime Modules
 
-import {ButtonModule} from 'primeng/button';
-import {CardModule} from 'primeng/card';
+
+import { NgPrimeModule } from './ng-prime/ng-prime.module';
 
 @NgModule({
   declarations: [
@@ -19,8 +19,7 @@ import {CardModule} from 'primeng/card';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ButtonModule,
-    CardModule,
+    NgPrimeModule,
     SharedModule,
     ImpresorasModule,
     DashBoardModule
