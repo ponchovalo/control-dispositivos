@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Impresora } from '../../interfaces/impresora.interface';
 
 @Component({
   selector: 'app-listado-impresoras',
@@ -7,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class ListadoImpresorasComponent implements OnInit {
+
+  impresoras: Impresora[] = [];
+
+  impresora: Impresora;
 
   constructor() { }
 
