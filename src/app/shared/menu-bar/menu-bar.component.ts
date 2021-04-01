@@ -16,14 +16,17 @@ export class MenuBarComponent implements OnInit {
 
     this.items = [
       {
-        separator:true
-      },
-      {
-          label: 'Home'
+          label: 'Home',
+          routerLink: '/'
+          
           
       },
       {
-          label: 'Impresoras'
+        separator:true
+      },
+      {
+          label: 'Impresoras',
+          routerLink: '/impresoras'
       }
   ];
   }

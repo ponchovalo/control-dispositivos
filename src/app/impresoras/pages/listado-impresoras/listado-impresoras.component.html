@@ -1,4 +1,3 @@
-
 <div class="card">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
@@ -6,24 +5,44 @@
             <button pButton pRipple label="Borrar" icon="pi pi-trash" class="p-button-danger"></button>
         </ng-template>
 
+        <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template>
+
     </p-toolbar>
 
-    <p-table [value]="impresoras">
+    <p-table [value]="impresoras" styleClass="p-datatable-sm">
+
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Manage Products</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"  placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+
         <ng-template pTemplate="header">
             <tr>
-                <th>ID</th>
                 <th>Nombre</th>
                 <th>Modelo</th>
                 <th>Serie</th>
+                <th>IP</th>
+                <th>Edificio</th>
+                <th>Ubicacion</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template pTemplate="body" let-impresora>
             <tr>
-                <td>{{impresora.id}}</td>
                 <td>{{impresora.nombre}}</td>
+                <td>{{impresora.modelo}}</td>
+                <td>{{impresora.serie}}</td>
+                <td>{{impresora.ip}}</td>
+                <td>{{impresora.edificio}}</td>
+                <td>{{impresora.ubicacion}}</td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-
-
