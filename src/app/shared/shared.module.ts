@@ -4,6 +4,8 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { NgPrimeModule } from '../ng-prime/ng-prime.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   ],
   imports: [
     CommonModule,
-    NgPrimeModule
+    NgPrimeModule,
+    FormsModule
   ]
 })
 export class SharedModule { }

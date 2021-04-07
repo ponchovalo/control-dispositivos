@@ -8,3 +8,8 @@ export interface Impresora {
     edificio: string,
     ubicacion: string
 }
+
+export interface Modelo {
+    id: number,
+    nombre: string
+}

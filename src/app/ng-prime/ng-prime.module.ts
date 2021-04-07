@@ -7,6 +7,12 @@ import {SidebarModule} from 'primeng/sidebar';
 import {TableModule} from 'primeng/table';
 import {ToolbarModule} from 'primeng/toolbar';
 import {ToastModule} from 'primeng/toast';
+import {DialogModule} from 'primeng/dialog';
+import {InputTextModule} from 'primeng/inputtext';
+import {DropdownModule} from 'primeng/dropdown';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {ListboxModule} from 'primeng/listbox';
 
 @NgModule({
   declarations: [],
@@ -17,7 +23,13 @@ import {ToastModule} from 'primeng/toast';
     SidebarModule,
     TableModule,
     ToolbarModule,
-    ToastModule
+    ToastModule,
+    DialogModule,
+    InputTextModule,
+    DropdownModule,
+    MessagesModule,
+    MessageModule,
+    ListboxModule
 
   ]
 })

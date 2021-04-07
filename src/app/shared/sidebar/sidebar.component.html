@@ -1,6 +1,4 @@
-<p-card header="APP CONTROL" [style]="{'height': '400px', 'margin-bottom': '2em'}">
-    <ul>
-        <li>Impresoras</li>
-        <li>Clear Cube</li>
-    </ul>
+<p-card [header]="titulo" [style]="{'height': '400px', 'margin-bottom': '2em'}">
+    <p-listbox [options] = "elementosSidebar" optionLabel="titulo" [(ngModel)]="elementoSelect" (click)="enlazar(elementoSelect)">
+    </p-listbox>
 </p-card>

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
@@ -7,10 +9,15 @@ import { ImpresorasModule } from './impresoras/impresoras.module';
 import { SharedModule } from './shared/shared.module';
 import { DashBoardModule } from './dash-board/dash-board.module';
 
+import { MessageService } from 'primeng/api';
+
+import { HttpClientModule } from '@angular/common/http';
+
 //Prime Modules
 
 
 import { NgPrimeModule } from './ng-prime/ng-prime.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
 
 @NgModule({
   declarations: [
@@ -18,13 +25,17 @@ import { NgPrimeModule } from './ng-prime/ng-prime.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
     AppRoutingModule,
     NgPrimeModule,
+    UsuariosModule,
     SharedModule,
     ImpresorasModule,
     DashBoardModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

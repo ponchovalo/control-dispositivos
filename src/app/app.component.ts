@@ -10,4 +10,7 @@ export class AppComponent {
   nombre: string = 'Ildefonso';
   apellido: string = 'Valenzuela';
   title = 'control-dispositivos';
+
+
+  
 }

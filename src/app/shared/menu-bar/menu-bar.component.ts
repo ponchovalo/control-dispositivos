@@ -18,11 +18,13 @@ export class MenuBarComponent implements OnInit {
       {
           label: 'Home',
           routerLink: '/'
-          
-          
       },
       {
         separator:true
+      },
+      {
+          label: 'Clear Cube',
+          routerLink: '/impresoras'
       },
       {
           label: 'Impresoras',
