@@ -17,10 +17,7 @@ export class MenuBarComponent implements OnInit {
     this.items = [
       {
           label: 'Home',
-          routerLink: '/'
-      },
-      {
-        separator:true
+          routerLink: '/dashboard'
       },
       {
           label: 'Clear Cube',
@@ -29,6 +26,10 @@ export class MenuBarComponent implements OnInit {
       {
           label: 'Impresoras',
           routerLink: '/impresoras'
+      },
+      {
+          label: 'Login',
+          routerLink: '/auth/login'
       }
   ];
   }

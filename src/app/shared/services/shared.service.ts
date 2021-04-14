@@ -13,32 +13,32 @@ export class SharedService {
 
   constructor() { }
 
-  tituloSideBar(path: string) {
+  tituloSideBar(titulo: string) {
 
-    switch(path){
-      case "/impresoras":
+    switch(titulo){
+      case "impresoras":
         this.ubicacion = "Impresoras";
         this.elementosSidebar = [
           {
             titulo: "Inventario",
-            enlace: "/impresoras"
+            enlace: "/impresoras/listado"
           },
           {
             titulo: "Control Toner",
-            enlace: "/control-toner"
+            enlace: "/impresoras/control-toner"
           },
           {
             titulo: "Reportes",
-            enlace: "/reportes"
+            enlace: "/impresoras/reportes"
           }
         ]
         break
-      case "/":
+      case "dashboard":
         this.ubicacion = "DashBoard";
         this.elementosSidebar = [
           {
             titulo: "Resumen",
-            enlace: "/"
+            enlace: "/dashboard"
           }
         ]
         break

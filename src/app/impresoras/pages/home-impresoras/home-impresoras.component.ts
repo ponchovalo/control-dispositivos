@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { SharedService } from '../../../shared/services/shared.service';
 
 @Component({
-  selector: 'app-dash-board',
-  templateUrl: './dash-board.component.html',
+  selector: 'app-home-impresoras',
+  templateUrl: './home-impresoras.component.html',
   styles: [
   ]
 })
-export class DashBoardComponent implements OnInit {
+export class HomeImpresorasComponent implements OnInit {
 
   constructor(
     private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
-    this.sharedService.tituloSideBar('dashboard');
+    this.sharedService.tituloSideBar('impresoras')
   }
 
 }

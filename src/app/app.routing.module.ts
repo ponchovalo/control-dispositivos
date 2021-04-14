@@ -1,33 +1,29 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { DashBoardComponent } from './dash-board/pages/dash-board/dash-board.component';
-import { ControlTonerComponent } from "./impresoras/pages/control-toner/control-toner.component";
-import { ListadoImpresorasComponent } from "./impresoras/pages/listado-impresoras/listado-impresoras.component";
-import { ReporteImpresorasComponent } from "./impresoras/pages/reporte-impresoras/reporte-impresoras.component";
-import { LoginComponent } from "./usuarios/pages/login/login.component";
+import { ErrorPageComponent } from './shared/error-page/error-page.component';
 
 const routes: Routes = [
     {
-        path: '',
-        component: DashBoardComponent,
-        pathMatch: 'full'
-    },
-    {
         path: 'impresoras',
-        component: ListadoImpresorasComponent,
+        loadChildren: () => import('./impresoras/impresoras.module').then(m => m.ImpresorasModule)
     },
     {
-        path: 'control-toner',
-        component: ControlTonerComponent,
+        path: 'dashboard',
+        loadChildren: () => import('./dash-board/dash-board.module').then(m => m.DashBoardModule)
     },
     {
-        path: 'reportes',
-        component: ReporteImpresorasComponent,
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
     },
     {
-        path: 'login',
-        component: LoginComponent,
+        path: '404',
+        component: ErrorPageComponent
+    },
+    {
+        path: '**',
+        redirectTo: '404'
     }
+
 ]
 
 

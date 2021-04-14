@@ -6,6 +6,9 @@ import { NgPrimeModule } from '../ng-prime/ng-prime.module';
 import { MessageService } from 'primeng/api';
 import { ReporteImpresorasComponent } from './pages/reporte-impresoras/reporte-impresoras.component';
 import { ControlTonerComponent } from './pages/control-toner/control-toner.component';
+import { HomeImpresorasComponent } from './pages/home-impresoras/home-impresoras.component';
+import { ImpresorasRoutingModule } from './impresoras-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -13,12 +16,15 @@ import { ControlTonerComponent } from './pages/control-toner/control-toner.compo
   declarations: [
     ListadoImpresorasComponent,
     ReporteImpresorasComponent,
-    ControlTonerComponent
+    ControlTonerComponent,
+    HomeImpresorasComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    NgPrimeModule
+    NgPrimeModule,
+    SharedModule,
+    ImpresorasRoutingModule
   ],
   providers:[
     MessageService

@@ -61,13 +61,10 @@ export class ListadoImpresorasComponent implements OnInit {
 
   constructor( 
     private impresorasService : ImpresorasService, 
-    private messageService: MessageService,
-    private router:Router,
-    private sharedService: SharedService
+    private messageService: MessageService
     ) { }
 
   ngOnInit(): void {
-    this.sharedService.tituloSideBar(this.router.url);
     this.listarImpresoras();
   }
 
