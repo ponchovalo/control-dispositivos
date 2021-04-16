@@ -13,6 +13,8 @@ import {DropdownModule} from 'primeng/dropdown';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {ListboxModule} from 'primeng/listbox';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   declarations: [],
@@ -29,7 +31,9 @@ import {ListboxModule} from 'primeng/listbox';
     DropdownModule,
     MessagesModule,
     MessageModule,
-    ListboxModule
+    ListboxModule,
+    InputNumberModule,
+    CalendarModule
 
   ]
 })

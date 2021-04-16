@@ -2,4 +2,24 @@
     <ng-template pTemplate="start">
         <img src="assets/logo.png" height="50" class="p-mr-6">
     </ng-template>
+    <ng-template pTemplate="end">
+        <button pButton 
+            [label]="authService.usuario.nombre"
+            type="button" 
+            icon="pi pi-user" 
+            iconPos="left"
+            class="p-button-outlined p-button-success p-d-inline p-mx-1"></button>
+
+        <button pButton 
+            label="Cerrar Sesion"
+            type="button" 
+            icon="pi pi-sign-out" 
+            iconPos="left"
+            class="p-button-outlined p-button-help p-d-inline p-mx-1"
+            (click)="logout()"></button>
+
+
+
+        
+    </ng-template>
 </p-menubar>

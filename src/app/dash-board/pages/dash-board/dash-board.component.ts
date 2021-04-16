@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { SharedService } from '../../../shared/services/shared.service';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-dash-board',
@@ -10,12 +12,17 @@ import { SharedService } from '../../../shared/services/shared.service';
 })
 export class DashBoardComponent implements OnInit {
 
+
   constructor(
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private messageService: MessageService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.sharedService.tituloSideBar('dashboard');
   }
+
+
 
 }

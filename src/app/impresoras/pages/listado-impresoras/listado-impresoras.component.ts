@@ -29,7 +29,8 @@ export class ListadoImpresorasComponent implements OnInit {
       ip: "",
       mac: "",
       edificio: "",
-      ubicacion: ""
+      ubicacion: "",
+      registros: []
   };
 
   dialogo: boolean = false;
@@ -77,7 +78,8 @@ export class ListadoImpresorasComponent implements OnInit {
       ip: "",
       mac: "",
       edificio: "",
-      ubicacion: ""
+      ubicacion: "",
+      registros: []
     }
   };
 
@@ -96,7 +98,7 @@ export class ListadoImpresorasComponent implements OnInit {
 
   listarImpresoras(){
     this.impresorasService.getImpresoras().subscribe(
-      impresoras => this.impresoras = impresoras
+      impresoras => { this.impresoras = impresoras}
     );
   }
 

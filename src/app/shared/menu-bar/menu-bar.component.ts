@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, MessageService} from 'primeng/api';
+import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-menu-bar',
   templateUrl: './menu-bar.component.html',
@@ -10,7 +12,18 @@ export class MenuBarComponent implements OnInit {
 
   items:MenuItem[]; 
 
-  constructor() { }
+  constructor( private authService: AuthService, private router: Router, private messageService: MessageService ) { }
+
+  logout():void {
+    this.authService.logout();
+
+    setTimeout(() => {
+      this.messageService.add({severity:'success', summary: 'OK', detail: 'Sesion Cerrada con Exito', life: 3000})
+    }, 500);
+
+    this.router.navigate(['/auth/login'])
+
+  }
 
   ngOnInit(): void {
 
@@ -26,10 +39,6 @@ export class MenuBarComponent implements OnInit {
       {
           label: 'Impresoras',
           routerLink: '/impresoras'
-      },
-      {
-          label: 'Login',
-          routerLink: '/auth/login'
       }
   ];
   }
