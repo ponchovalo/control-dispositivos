@@ -27,3 +27,14 @@ export interface Registro {
     toner: string;
     fecha: Date;
 }
+
+export interface RegistroReporte {
+    id: number;
+    contador109: number;
+    contador124: number;
+    contador102: number;
+    impresora: Impresora;
+    vpbyn: number;
+    vpcolor: number;
+    fecha: Date;
+}

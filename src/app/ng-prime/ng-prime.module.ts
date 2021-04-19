@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import {PanelModule} from 'primeng/panel';
 import {ButtonModule} from 'primeng/button';
 import {CardModule} from 'primeng/card';
 import {MenubarModule} from 'primeng/menubar';
@@ -15,10 +15,12 @@ import {MessageModule} from 'primeng/message';
 import {ListboxModule} from 'primeng/listbox';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {CalendarModule} from 'primeng/calendar';
+import {TabViewModule} from 'primeng/tabview';
 
 @NgModule({
   declarations: [],
   exports: [
+    
     ButtonModule,
     CardModule,
     MenubarModule,
@@ -33,7 +35,9 @@ import {CalendarModule} from 'primeng/calendar';
     MessageModule,
     ListboxModule,
     InputNumberModule,
-    CalendarModule
+    CalendarModule,
+    PanelModule,
+    TabViewModule
 
   ]
 })

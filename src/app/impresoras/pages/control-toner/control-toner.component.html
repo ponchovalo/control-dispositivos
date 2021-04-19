@@ -1,12 +1,6 @@
 <p-toast></p-toast>
 <div class="card">
-    <p-table #dt 
-        [value]="impresoras" 
-        styleClass="p-datatable-sm" 
-        [rows] = "5" 
-        [paginator] = "true"
-        [globalFilterFields]="['nombre', 'modelo', 'edificio']"
-        >
+    <p-table #dt [value]="impresoras" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['nombre', 'modelo', 'ubicacion']">
 
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
@@ -24,8 +18,8 @@
                 <th>Modelo</th>
                 <th>Ubicacion</th>
                 <th>No. Cambios</th>
-                <th>Ultima Modificacion</th>
-                <th>Ultimo Usuario</th>
+                <th>Fecha Último Cámbio</th>
+                <th>Usuario</th>
                 <th></th>
 
             </tr>
@@ -35,17 +29,17 @@
                 <td>{{impresora.nombre}}</td>
                 <td>{{impresora.modelo}}</td>
                 <td>{{impresora.ubicacion}}</td>
-                <td>{{impresora.registros.length}}</td>
+                <td class="p-text-center">{{impresora.registros.length}}</td>
                 <td>
                     <span *ngIf="impresora.registros.length != 0; else noHayRegistros">
                         {{impresora.registros[impresora.registros.length - 1].fecha | date: 'dd MMMM yyyy'}}
-                    </span> 
+                    </span>
                     <ng-template #noHayRegistros>No hay Registros</ng-template>
                 </td>
                 <td>
                     <span *ngIf="impresora.registros.length != 0; else noHayRegistros">
                         {{impresora.registros[impresora.registros.length - 1].usuario.nombre }}
-                    </span> 
+                    </span>
                     <ng-template #noHayRegistros>No hay Registros</ng-template>
                 </td>
                 <td>
@@ -56,7 +50,7 @@
         </ng-template>
     </p-table>
 </div>
-<p-dialog [(visible)] = "dialogo" [style]="{width: '700px'}" header="Detalles Bitacora Control de Toner" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="dialogo" [style]="{width: '700px'}" header="Detalles Bitacora Control de Toner" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <p-card [style]="{height: '510px'}">
             <div class="p-fluid p-formgrid p-grid p-mb-2">
@@ -69,7 +63,7 @@
                         <label for="float-input">Fecha</label>
                     </span>
                 </div>
-                <div class="p-field p-col-6 p-mb-6 p-mt-4">   
+                <div class="p-field p-col-6 p-mb-6 p-mt-4">
                     <span class="p-float-label">
                         <input id="float-input" type="text" pInputText [(ngModel)]="registro.toner"> 
                         <label for="float-input">Toner</label>
@@ -92,18 +86,18 @@
                         <p-inputNumber locale="en-US" id="float-input" [(ngModel)]="registro.contador102"></p-inputNumber>
                         <label for="float-input">Contador 102</label>
                     </span>
-                </div>            
+                </div>
             </div>
         </p-card>
 
         <div>
-            
+
         </div>
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click) = "cerrarDialogo()"></button>
-        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click) = "guardarRegistro()"></button>
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="cerrarDialogo()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="guardarRegistro()"></button>
     </ng-template>
-    
+
 </p-dialog>

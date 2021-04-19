@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Impresora, Modelo } from '../../interfaces/impresora.interface';
 import { ImpresorasService } from '../../services/impresoras.service';
-import { Router } from '@angular/router';
-import { SharedService } from '../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-listado-impresoras',

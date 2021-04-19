@@ -29,7 +29,16 @@ export class SharedService {
           },
           {
             titulo: "Reportes",
-            enlace: "/impresoras/reportes"
+            enlace: "/impresoras/reporte"
+          }
+        ]
+        break
+      case "clearcubes":
+        this.ubicacion = "Clear Cube";
+        this.elementosSidebar = [
+          {
+            titulo: "Inventario",
+            enlace: "/clearcubes/listado"
           }
         ]
         break

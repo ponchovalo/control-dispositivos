@@ -34,7 +34,7 @@ export class MenuBarComponent implements OnInit {
       },
       {
           label: 'Clear Cube',
-          routerLink: '/impresoras'
+          routerLink: '/clearcubes'
       },
       {
           label: 'Impresoras',

@@ -9,6 +9,9 @@ import { ControlTonerComponent } from './pages/control-toner/control-toner.compo
 import { HomeImpresorasComponent } from './pages/home-impresoras/home-impresoras.component';
 import { ImpresorasRoutingModule } from './impresoras-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { ListadoReporteComponent } from './components/listado-reporte/listado-reporte.component';
+import { ResumenReporteComponent } from './components/resumen-reporte/resumen-reporte.component';
+import { FormReporteComponent } from './components/form-reporte/form-reporte.component';
 
 
 
@@ -17,7 +20,10 @@ import { SharedModule } from '../shared/shared.module';
     ListadoImpresorasComponent,
     ReporteImpresorasComponent,
     ControlTonerComponent,
-    HomeImpresorasComponent
+    HomeImpresorasComponent,
+    ListadoReporteComponent,
+    ResumenReporteComponent,
+    FormReporteComponent
   ],
   imports: [
     CommonModule,

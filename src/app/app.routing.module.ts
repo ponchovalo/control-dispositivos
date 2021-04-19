@@ -10,6 +10,11 @@ const routes: Routes = [
         canActivate:[AuthGuard]
     },
     {
+        path: 'clearcubes',
+        loadChildren: () => import('./clear-cubes/clear-cubes.module').then(m => m.ClearCubesModule),
+        canActivate:[AuthGuard]
+    },
+    {
         path: 'dashboard',
         loadChildren: () => import('./dash-board/dash-board.module').then(m => m.DashBoardModule),
         canActivate:[AuthGuard]

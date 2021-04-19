@@ -2,18 +2,12 @@
 <div class="card">
     <p-toolbar>
         <div class="p-toolbar-group-left">
-            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2" (click) = "abrirNuevo()"></button>
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="abrirNuevo()"></button>
             <button pButton pRipple label="Borrar" icon="pi pi-trash" class="p-button-danger"></button>
         </div>
     </p-toolbar>
 
-    <p-table #dt 
-        [value]="impresoras" 
-        styleClass="p-datatable-sm" 
-        [rows] = "5" 
-        [paginator] = "true"
-        [globalFilterFields]="['nombre', 'modelo', 'edificio']"
-        >
+    <p-table #dt [value]="impresoras" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['nombre', 'modelo', 'edificio','ip']">
 
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
@@ -53,7 +47,7 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)] = "dialogo" [style]="{width: '450px'}" header="Impresora" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="dialogo" [style]="{width: '450px'}" header="Impresora" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="p-fluid p-formgrid p-grid">
 
@@ -62,11 +56,11 @@
                 <input type="text" pInputText id="name" [(ngModel)]="impresora.nombre" required autofocus />
                 <small class="p-error" *ngIf="submited && !impresora.nombre">El nombre es requerido</small>
             </div>
-    
-    
+
+
             <div class="p-field p-col-12 p-md-6">
                 <label for="inventoryStatus">Modelo</label>
-                <p-dropdown [(ngModel)]="impresora.modelo" optionLabel="nombre" optionValue="nombre" inputId="modelo" [options]="modelos" placeholder="Select" >
+                <p-dropdown [(ngModel)]="impresora.modelo" optionLabel="nombre" optionValue="nombre" inputId="modelo" [options]="modelos" placeholder="Select">
                 </p-dropdown>
             </div>
             <div class="p-field p-col-12 p-md-6">
@@ -97,14 +91,14 @@
                 <input type="text" pInputText id="ubicacion" [(ngModel)]="impresora.ubicacion" required />
                 <!--<small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>-->
             </div>
-            
+
         </div>
 
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click) = "cerrarDialogo()"></button>
-        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click) = "guardarImpresora()"></button>
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="cerrarDialogo()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="guardarImpresora()"></button>
     </ng-template>
-    
+
 </p-dialog>

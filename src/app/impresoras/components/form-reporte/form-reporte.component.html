@@ -1,0 +1,78 @@
+<p-toast></p-toast>
+<p-card header="Generar Reporte">
+    <p-table #dt [value]="registros" dataKey="id" styleClass="p-datatable-sm" [rows]="10" [paginator]="false" [globalFilterFields]="['impresora.nombre', 'impresora.modelo', 'impresora.ip']">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Capturar Contadores</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"  (input) = "dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nombre</th>
+                <th>Modelo</th>
+                <th>IP</th>
+                <th>Contador 109</th>
+                <th>Contador 124</th>
+                <th>Contador 102</th>
+                <th></th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-registro>
+            <tr>
+                <td>{{registro.impresora.nombre}}</td>
+                <td>{{registro.impresora.modelo}}</td>
+                <td>{{registro.impresora.ip}}</td>
+                <td>{{registro.contador109}}</td>
+                <td>{{registro.contador124}}</td>
+                <td pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="number" [(ngModel)]="registro.contador102" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{registro.contador102}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td class="p-text-center">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="selectRegistro(registro)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+
+<p-dialog *ngIf="registro" [(visible)]="dialogo" [header]="registro.impresora.nombre" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col-4">
+                <label for="name">Contador109</label>
+                <input type="text" pInputText id="name" [(ngModel)]="registro.contador109" required autofocus />
+            </div>
+
+            <div class="p-field p-col-4">
+                <label for="name">Contador124</label>
+                <input type="text" pInputText id="serie" [(ngModel)]="registro.contador124" required />
+            </div>
+
+            <div class="p-field p-col-4">
+                <label for="name">contador102</label>
+                <input type="text" pInputText id="ip" [(ngModel)]="registro.contador102" required />
+            </div>
+
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="guardarRegistro()"></button>
+    </ng-template>
+
+</p-dialog>
