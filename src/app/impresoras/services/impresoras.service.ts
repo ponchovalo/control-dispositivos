@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Impresora, Registro } from '../interfaces/impresora.interface';
+import { FechaMes, Impresora, Registro, RegistroReporte } from '../interfaces/impresora.interface';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 
@@ -12,6 +12,7 @@ export class ImpresorasService {
     
     private urlBase: string = "http://localhost:8080/api/impresoras";
     private urlBaseToner: string = "http://localhost:8080/api/controltoner";
+    private urlBaseReporte: string = "http://localhost:8080/api/reporteimpresora";
     
 
     constructor(private http: HttpClient, 
@@ -48,6 +49,11 @@ export class ImpresorasService {
     crearRegistroToner(registro: Registro) : Observable<Registro> {
       console.log(registro)
       return this.http.post<Registro>(this.urlBaseToner, registro);
+    }
+
+    getRegistros(fechames: FechaMes): Observable<RegistroReporte[]>{
+      console.log(fechames.year + ' '+fechames.month)
+      return this.http.get<RegistroReporte[]>(`${this.urlBaseReporte}/${fechames.year}/${fechames.month}`);
     }
 
 

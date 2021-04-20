@@ -12,7 +12,10 @@
                             <button (click)="buscarReporte()" pButton pRipple type="button" label="Buscar Reporte" class="p-button-outlined"></button>
                         </div>
                         <div class="p-field" class="p-ml-6">
-                            <button (click)="generarReporte()" pButton pRipple type="button" label="Generar Reporte" class="p-button-outlined"></button>
+                            <button (click)="generaReporte()" pButton pRipple type="button" label="Generar Reporte" class="p-button-outlined"></button>
+                        </div>
+                        <div class="p-field" class="p-ml-6" *ngIf="hayRegistrosGuardados()">
+                            <button (click)="continuaReporte()" pButton pRipple type="button" label="Continuar Reporte" class="p-button-outlined"></button>
                         </div>
                     </div>
                 </p-panel>
@@ -20,7 +23,7 @@
         </div>
     </p-card>
 </div>
-<div class="p-mt-2" *ngIf="crearVer">
+<div class="p-mt-2" *ngIf="!reporte">
     <p-card [header]="mes" subheader="Detalles del mes" class="p-pt-2">
         <p-tabView styleClass="tabview-custom">
             <p-tabPanel>
@@ -50,6 +53,6 @@
     </p-card>
 </div>
 
-<div class="p-mt-2" *ngIf="!crearVer">
-    <app-form-reporte [mesSelected]='mesSelected'></app-form-reporte>
+<div class="p-mt-2" *ngIf="reporte">
+    <app-form-reporte [mesSelected]='mesSelected' [opcion]='opcion'></app-form-reporte>
 </div>

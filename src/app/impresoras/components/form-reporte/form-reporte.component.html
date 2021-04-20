@@ -1,5 +1,15 @@
 <p-toast></p-toast>
-<p-card header="Generar Reporte">
+<p-card *ngIf="mensajeGuardado">
+    <div class="p-text-center">
+        <span>Reporte Guardado</span> <br>
+        <span>Para generar reporte completo presione Cerrar</span><br>
+        <span>Para seguir editando eliga la opcion Continuar Reporte en el menu superior</span>
+        <div class="p-field p-mt-4">
+            <button (click)="cerrarReporte()" pButton pRipple type="button" label="Cerrar" class="p-button-outlined"></button>
+        </div>
+    </div>
+</p-card>
+<p-card header="Generar Reporte" *ngIf="!mensajeGuardado && registros.length != 0">
     <p-table #dt [value]="registros" dataKey="id" styleClass="p-datatable-sm" [rows]="10" [paginator]="false" [globalFilterFields]="['impresora.nombre', 'impresora.modelo', 'impresora.ip']">
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
@@ -30,43 +40,44 @@
                 <td>{{registro.impresora.ip}}</td>
                 <td>{{registro.contador109}}</td>
                 <td>{{registro.contador124}}</td>
-                <td pEditableColumn>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input pInputText type="number" [(ngModel)]="registro.contador102" required>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{registro.contador102}}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
+                <td>{{registro.contador102}}</td>
                 <td class="p-text-center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="selectRegistro(registro)"></button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
+    <ng-template pTemplate="footer">
+        <div class="p-text-right p-mr-4">
+            <button (click)="guardarReporte()" pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"></button>
+        </div>
+    </ng-template>
 </p-card>
 
-<p-dialog *ngIf="registro" [(visible)]="dialogo" [header]="registro.impresora.nombre" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+<p-dialog *ngIf="registro" [(visible)]="dialogo" [closable]="false" [header]="registro.impresora.nombre" [style]="{width: '650px'}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="p-fluid p-formgrid p-grid">
 
-            <div class="p-field p-col-4">
-                <label for="name">Contador109</label>
-                <input type="text" pInputText id="name" [(ngModel)]="registro.contador109" required autofocus />
+            <div class="p-field p-col-4 p-mt-4">
+                <span class="p-float-label">
+                    <p-inputNumber id="contador109"  [(ngModel)]="registro.contador109" autofocus ></p-inputNumber> 
+                    <label for="contador109">Contador109</label>
+                </span>
             </div>
 
-            <div class="p-field p-col-4">
-                <label for="name">Contador124</label>
-                <input type="text" pInputText id="serie" [(ngModel)]="registro.contador124" required />
+            <div class="p-field p-col-4 p-mt-4">
+                <span class="p-float-label">
+                    <p-inputNumber id="contador124"  [(ngModel)]="registro.contador124"></p-inputNumber> 
+                    <label for="contador124">Contador124</label>
+                </span>
             </div>
 
-            <div class="p-field p-col-4">
-                <label for="name">contador102</label>
-                <input type="text" pInputText id="ip" [(ngModel)]="registro.contador102" required />
+            <div class="p-field p-col-4 p-mt-4">
+                <span class="p-float-label">
+                    <p-inputNumber id="contador102"  [(ngModel)]="registro.contador102"></p-inputNumber>
+                    <label for="contador102">Contador102</label>
+                </span>
             </div>
-
         </div>
 
     </ng-template>

@@ -36,5 +36,11 @@ export interface RegistroReporte {
     impresora: Impresora;
     vpbyn: number;
     vpcolor: number;
-    fecha: Date;
+    year: number;
+    month: number;
+}
+
+export interface FechaMes {
+    year: number;
+    month: number;
 }

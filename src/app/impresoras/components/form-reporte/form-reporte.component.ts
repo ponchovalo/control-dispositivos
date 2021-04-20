@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ImpresorasService } from '../../services/impresoras.service';
-import { Impresora, RegistroReporte } from './../../interfaces/impresora.interface'
+import { FechaMes, Impresora, RegistroReporte } from './../../interfaces/impresora.interface'
 
 @Component({
   selector: 'app-form-reporte',
@@ -16,6 +17,7 @@ import { Impresora, RegistroReporte } from './../../interfaces/impresora.interfa
 export class FormReporteComponent implements OnInit {
 
 
+  mensajeGuardado: boolean = false;
 
   registro: RegistroReporte = null;
 
@@ -27,36 +29,49 @@ export class FormReporteComponent implements OnInit {
 
   dialogo: boolean = false;
 
+  fechames: FechaMes = null;
+
   @Input() mesSelected: Date;
+  @Input() opcion: string;
 
   constructor(
-    private impresorasService: ImpresorasService 
+    private impresorasService: ImpresorasService,
+    private router: Router 
   ) { }
 
   ngOnInit(): void {
-    this.obtenerImpresoras();
   }
 
-
-  obtenerImpresoras(){
-    this.impresorasService.getImpresoras().subscribe(
-      impresoras => { this.impresoras = impresoras
-        for (let i = 0; i < this.impresoras.length; i++) {
-          let registro: RegistroReporte = {
-            id : i + 1,
-            contador109 : 0,
-            contador124 : 0,
-            contador102 : 0,
-            impresora : this.impresoras[i],
-            vpbyn : 0,
-            vpcolor : 0,
-            fecha : this.mesSelected
+  generarReporte(opcion: string){
+    this.mensajeGuardado = false;
+    if(opcion == 'generar'){
+      this.registros = [];
+      this.impresorasService.getImpresoras().subscribe(
+        impresoras => { this.impresoras = impresoras
+          for (let i = 0; i < this.impresoras.length; i++) {
+            let registro: RegistroReporte = {
+              id : i + 1,
+              contador109 : 0,
+              contador124 : 0,
+              contador102 : 0,
+              impresora : this.impresoras[i],
+              vpbyn : 0,
+              vpcolor : 0,
+              year : this.mesSelected.getFullYear(),
+              month: this.mesSelected.getMonth() + 1
+            }
+            this.registros.push(registro)
           }
-          this.registros.push(registro)
+          console.log(this.registros)
         }
+      )
+    }else if(opcion == 'continuar'){
+      if(localStorage.getItem('registrosGuardados')){
+        this.registros = JSON.parse(localStorage.getItem('registrosGuardados'))
         console.log(this.registros)
       }
-    )
+    }
+
   }
 
   selectRegistro(registro){
@@ -67,11 +82,31 @@ export class FormReporteComponent implements OnInit {
   guardarRegistro(){
     this.registro = null;
     this.dialogo = false;
-    console.log(this.registros)
   }
 
+  guardarReporte(){
+    this.mensajeGuardado = true;
+    localStorage.setItem('registrosGuardados', JSON.stringify(this.registros));
+  }
 
+  cerrarReporte(){
+    localStorage.removeItem('registrosGuardados')
+    this.registros = [];
+    this.mensajeGuardado = false;
+    this.listar();
+    this.router.navigate[('/impresoras/reporte')]
+  }
 
-  listar(){}
+  listar(){
+    console.log(this.mesSelected.getMonth())
+    this.fechames = {
+      year: this.mesSelected.getFullYear(),
+      month: this.mesSelected.getMonth()
+    }
+    let registrosObtenidos: RegistroReporte[] = [];
+    this.impresorasService.getRegistros(this.fechames)
+      .subscribe(res => console.log(res));
+
+  }
 
 }
