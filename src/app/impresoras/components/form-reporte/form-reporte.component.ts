@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { CompileTemplateMetadata } from '@angular/compiler';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ImpresorasService } from '../../services/impresoras.service';
 import { FechaMes, Impresora, RegistroReporte } from './../../interfaces/impresora.interface'
 
@@ -33,10 +35,12 @@ export class FormReporteComponent implements OnInit {
 
   @Input() mesSelected: Date;
   @Input() opcion: string;
+  
 
   constructor(
     private impresorasService: ImpresorasService,
-    private router: Router 
+    private router: Router,
+    private messageService: MessageService 
   ) { }
 
   ngOnInit(): void {
@@ -45,12 +49,16 @@ export class FormReporteComponent implements OnInit {
   generarReporte(opcion: string){
     this.mensajeGuardado = false;
     if(opcion == 'generar'){
+      if(this.mesSelected == null){
+        this.messageService.add({severity:'error', summary: 'Error', detail: `Ingesar Fecha`, life: 3000});
+        return
+      }
       this.registros = [];
       this.impresorasService.getImpresoras().subscribe(
         impresoras => { this.impresoras = impresoras
           for (let i = 0; i < this.impresoras.length; i++) {
             let registro: RegistroReporte = {
-              id : i + 1,
+              id : 0,
               contador109 : 0,
               contador124 : 0,
               contador102 : 0,
@@ -90,22 +98,36 @@ export class FormReporteComponent implements OnInit {
   }
 
   cerrarReporte(){
-    localStorage.removeItem('registrosGuardados')
-    this.registros = [];
-    this.mensajeGuardado = false;
     this.listar();
+    this.mensajeGuardado = false;
     this.router.navigate[('/impresoras/reporte')]
   }
 
+
   listar(){
-    console.log(this.mesSelected.getMonth())
     this.fechames = {
-      year: this.mesSelected.getFullYear(),
-      month: this.mesSelected.getMonth()
+      year: this.registros[1].year,
+      month: this.registros[1].month - 1
     }
     let registrosObtenidos: RegistroReporte[] = [];
     this.impresorasService.getRegistros(this.fechames)
-      .subscribe(res => console.log(res));
+      .subscribe(res => {registrosObtenidos = res
+        console.log(res)
+        for (let i = 0; i < this.registros.length; i++) {
+          this.registros[i].vpbyn = this.registros[i].contador109 - registrosObtenidos[i].contador109
+          this.registros[i].vpcolor = this.registros[i].contador124 - registrosObtenidos[i].contador124
+        }
+
+        for (let i = 0; i < this.registros.length; i++) {
+          this.impresorasService.crearReporte(this.registros[i])
+            .subscribe(res => console.log("ok"))
+          
+        }
+
+        localStorage.removeItem('registrosGuardados');
+        this.registros = [];
+
+      });
 
   }
 

@@ -56,6 +56,9 @@ export class ImpresorasService {
       return this.http.get<RegistroReporte[]>(`${this.urlBaseReporte}/${fechames.year}/${fechames.month}`);
     }
 
+    crearReporte(registroReporte: RegistroReporte): Observable<RegistroReporte>{
+      return this.http.post<RegistroReporte>(this.urlBaseReporte, registroReporte);
+    }
 
 
 

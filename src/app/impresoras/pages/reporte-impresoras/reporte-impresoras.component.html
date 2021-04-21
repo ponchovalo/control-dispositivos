@@ -6,7 +6,7 @@
                     <div class="p-grid p-mt-1">
                         <div class="p-field">
                             <label for="monthpicker" class="p-mx-2">Mes</label>
-                            <p-calendar [(ngModel)]="mesSelected" class="p-mx-2" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
+                            <p-calendar [(ngModel)]="mesSelected" (onBlur)="cambioMes()" class="p-mx-2" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
                         </div>
                         <div class="p-field" class="p-ml-6">
                             <button (click)="buscarReporte()" pButton pRipple type="button" label="Buscar Reporte" class="p-button-outlined"></button>
@@ -23,15 +23,15 @@
         </div>
     </p-card>
 </div>
-<div class="p-mt-2" *ngIf="!reporte">
-    <p-card [header]="mes" subheader="Detalles del mes" class="p-pt-2">
+<div class="p-mt-2" *ngIf="!reporte && buscar">
+    <p-card [header]="mesSelected | date:'MMMM' | uppercase" subheader="Detalles del mes" class="p-pt-2">
         <p-tabView styleClass="tabview-custom">
             <p-tabPanel>
                 <ng-template pTemplate="header">
                     <i class="pi pi-print"></i>
                     <span>Lista Impresoras</span>
                 </ng-template>
-                <app-listado-reporte></app-listado-reporte>
+                <app-listado-reporte [mesSelected]='mesSelected'></app-listado-reporte>
             </p-tabPanel>
             <p-tabPanel header="Resumen Mes">
                 <ng-template pTemplate="header">

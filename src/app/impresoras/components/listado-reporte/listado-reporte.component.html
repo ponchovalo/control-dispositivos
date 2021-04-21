@@ -1,1 +1,26 @@
-<p>listado-reporte works!</p>
+<p-table [value]="registros">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Nombre</th>
+            <th>Modelo</th>
+            <th>IP</th>
+            <th>contador 109</th>
+            <th>contador 124</th>
+            <th>contador 102</th>
+            <th>Volumen Procesado B Y N</th>
+            <th>Volumen Procesado Color</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-registro>
+        <tr>
+            <td>{{registro.impresora.nombre}}</td>
+            <td>{{registro.impresora.modelo}}</td>
+            <td>{{registro.impresora.ip}}</td>
+            <td>{{registro.contador109}}</td>
+            <td>{{registro.contador124}}</td>
+            <td>{{registro.contador102}}</td>
+            <td>{{registro.vpbyn}}</td>
+            <td>{{registro.vpcolor}}</td>
+        </tr>
+    </ng-template>
+</p-table>
