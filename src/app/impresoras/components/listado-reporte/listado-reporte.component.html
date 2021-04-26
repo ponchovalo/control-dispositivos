@@ -1,26 +1,35 @@
-<p-table [value]="registros">
+<p-table #dt [value]="registros" [globalFilterFields]="['impresora.nombre', 'impresora.modelo', 'impresora.ip']">
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            <h5 class="p-m-0">Detalles de Reporte</h5>
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text"  (input) = "dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar..." />
+            </span>
+        </div>
+    </ng-template>
     <ng-template pTemplate="header">
         <tr>
             <th>Nombre</th>
             <th>Modelo</th>
-            <th>IP</th>
-            <th>contador 109</th>
-            <th>contador 124</th>
-            <th>contador 102</th>
-            <th>Volumen Procesado B Y N</th>
-            <th>Volumen Procesado Color</th>
+            <th class="p-text-center">IP</th>
+            <th class="p-text-center">contador 109</th>
+            <th class="p-text-center">contador 124</th>
+            <th class="p-text-center">contador 102</th>
+            <th class="p-text-center">Volumen Procesado B Y N</th>
+            <th class="p-text-center">Volumen Procesado Color</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-registro>
         <tr>
             <td>{{registro.impresora.nombre}}</td>
             <td>{{registro.impresora.modelo}}</td>
-            <td>{{registro.impresora.ip}}</td>
-            <td>{{registro.contador109}}</td>
-            <td>{{registro.contador124}}</td>
-            <td>{{registro.contador102}}</td>
-            <td>{{registro.vpbyn}}</td>
-            <td>{{registro.vpcolor}}</td>
+            <td class="p-text-center">{{registro.impresora.ip}}</td>
+            <td class="p-text-center">{{registro.contador109}}</td>
+            <td class="p-text-center">{{registro.contador124}}</td>
+            <td class="p-text-center">{{registro.contador102}}</td>
+            <td class="p-text-center">{{registro.vpbyn}}</td>
+            <td class="p-text-center">{{registro.vpcolor}}</td>
         </tr>
     </ng-template>
 </p-table>

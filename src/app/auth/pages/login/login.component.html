@@ -24,7 +24,7 @@
                             </div>
                             <div class="p-field">
                                 <label for="password">Contraseña</label>    
-                                <input id="password" type="password" pInputText required [(ngModel)]="usuario.password"> 
+                                <input  (keyup.enter)="login()" id="password" type="password" pInputText required [(ngModel)]="usuario.password"> 
                             </div>
                         </div>
                     </div>

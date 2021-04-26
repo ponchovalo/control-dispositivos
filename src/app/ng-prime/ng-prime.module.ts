@@ -16,6 +16,10 @@ import {ListboxModule} from 'primeng/listbox';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {CalendarModule} from 'primeng/calendar';
 import {TabViewModule} from 'primeng/tabview';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {FieldsetModule} from 'primeng/fieldset';
+import {ChartModule} from 'primeng/chart';
+import {DividerModule} from 'primeng/divider';
 
 @NgModule({
   declarations: [],
@@ -37,7 +41,11 @@ import {TabViewModule} from 'primeng/tabview';
     InputNumberModule,
     CalendarModule,
     PanelModule,
-    TabViewModule
+    TabViewModule,
+    SplitButtonModule,
+    FieldsetModule,
+    ChartModule,
+    DividerModule
 
   ]
 })

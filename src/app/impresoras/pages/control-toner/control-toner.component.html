@@ -32,7 +32,7 @@
                 <td class="p-text-center">{{impresora.registros.length}}</td>
                 <td>
                     <span *ngIf="impresora.registros.length != 0; else noHayRegistros">
-                        {{impresora.registros[impresora.registros.length - 1].fecha | date: 'dd MMMM yyyy'}}
+                        {{impresora.registros[impresora.registros.length - 1].fecha | date: 'dd MMMM yyyy' |titlecase}}
                     </span>
                     <ng-template #noHayRegistros>No hay Registros</ng-template>
                 </td>
@@ -43,14 +43,14 @@
                     <ng-template #noHayRegistros>No hay Registros</ng-template>
                 </td>
                 <td>
-                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-success p-mr-2" (click)="selectImpresora(impresora)"></button>
+                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-success p-mr-2" (click)="select(impresora, 'nuevo')"></button>
                     <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2" (click)="detallesImpresora(impresora)"></button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-<p-dialog [(visible)]="dialogo" [style]="{width: '700px'}" header="Detalles Bitacora Control de Toner" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="dialogo" [style]="{width: '700px'}" header="Agregar Cambio de Toner" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <p-card [style]="{height: '510px'}">
             <div class="p-fluid p-formgrid p-grid p-mb-2">
@@ -65,8 +65,7 @@
                 </div>
                 <div class="p-field p-col-6 p-mb-6 p-mt-4">
                     <span class="p-float-label">
-                        <input id="float-input" type="text" pInputText [(ngModel)]="registro.toner"> 
-                        <label for="float-input">Toner</label>
+                        <p-dropdown [options]="toners" [(ngModel)]="registro.toner" placeholder="Toner" optionLabel="name" optionValue="name"></p-dropdown>
                     </span>
                 </div>
                 <div class="p-col-4">
@@ -90,14 +89,56 @@
             </div>
         </p-card>
 
-        <div>
-
-        </div>
     </ng-template>
 
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="cerrarDialogo()"></button>
         <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="guardarRegistro()"></button>
+    </ng-template>
+
+</p-dialog>
+
+<p-dialog [(visible)]="dialogoTabla" [style]="{width: '900px'}" header="Historial Cambios de Toner" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        
+            <p-table #dt [value]="registrosImpresora" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['fecha', 'usuario.nombre']">
+
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-mr-4">Filtrar</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"  (input) = "dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Fecha</th>
+                <th>Contador 109</th>
+                <th>Contador 124</th>
+                <th>Contador 102</th>
+                <th>Usuario</th>
+                <th></th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{ item.fecha }}</td>
+                <td>{{ item.contador109 }}</td>
+                <td>{{ item.contador124 }}</td>
+                <td>{{ item.contador102 }}</td>
+                <td>{{ item.usuario.nombre }}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2" (click)="select(item, 'modificar')"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2" (click)="detallesImpresora(impresora)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>      
+
     </ng-template>
 
 </p-dialog>

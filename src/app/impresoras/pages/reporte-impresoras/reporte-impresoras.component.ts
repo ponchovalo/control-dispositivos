@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService, MenuItem } from 'primeng/api';
 import { FormReporteComponent } from '../../components/form-reporte/form-reporte.component';
 
 @Component({
@@ -10,63 +10,55 @@ import { FormReporteComponent } from '../../components/form-reporte/form-reporte
 })
 export class ReporteImpresorasComponent implements OnInit {
 
-
-  opcion: string = '';
-
-  reporte: boolean = false;
-
-  mesSelected: Date = new Date();
-
   buscar: boolean = false;
+  crear: boolean = false;
 
-
-  @ViewChild(FormReporteComponent) formReporte: FormReporteComponent;
-  generaReporte(){
-    this.reporte = true;
-    setTimeout(() => {
-      this.formReporte.generarReporte('generar')
-    }, 500);
-  }
-  continuaReporte(){
-    this.reporte = true;
-    setTimeout(() => {
-      this.formReporte.generarReporte('continuar')
-    }, 500);
-  }
+  items: MenuItem[];
 
   constructor(
     private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
-
+    this.items = [
+      {
+        label: 'Reporte Mensual',
+        icon: 'pi pi-fw pi-file',
+        items: [
+          {
+            label: 'Buscar...',
+            icon: 'pi pi-fw pi-search',
+            command: () => {
+              this.crear = false;
+              this.buscar = true;
+            }
+          },
+          {
+            label: 'Crear',
+            icon: 'pi pi-fw pi-plus',
+            command: () => {
+              this.buscar = false;
+              this.crear = true;
+            }
+          }
+        ]
+      },
+      {
+        label:'Impresoras',
+        items:[
+          {
+            label: 'Mensual'
+          },
+          {
+            label: 'Consumo Toner'
+          },
+          {
+            label: 'Refacciones'
+          }
+        ]
+      }
+    ]
   }
-
-  hayRegistrosGuardados(){
-    if(localStorage.getItem('registrosGuardados')){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  buscarReporte(){
-    if(this.mesSelected == null){
-      this.messageService.add({severity:'error', summary: 'Error', detail: `Ingesar Fecha`, life: 3000});
-      return
-    }
-    this.buscar = false
-    setTimeout(() => {
-      this.buscar = true
-    }, 300);
-    this.reporte = false;
-  }
-
-  cambioMes(){
-    this.buscar = false;
-  }
-
-
 
 
 }

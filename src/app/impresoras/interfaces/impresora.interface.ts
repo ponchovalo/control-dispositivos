@@ -44,3 +44,21 @@ export interface FechaMes {
     year: number;
     month: number;
 }
+
+export interface ModeloResumen {
+    name: string,
+    registros: RegistroReporte[],
+    volumProByN: number,
+    volumProColor: number,
+    volumExcedenteByN: number,
+    volumExcedenteColor: number,
+    volumenXContratoByN: number,
+    volumenXContratoColor: number,
+    precioExcedenteByN: number,
+    precioExcedenteColor: number,
+    importeExcedenteByN: number,
+    importeExcedenteColor: number,
+    impresorasInstaladas: number,
+    impresorasStock: number,
+    ImpresorasTotal: number
+}

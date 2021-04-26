@@ -1,1 +1,84 @@
-<p>resumen-reporte works!</p>
+<p-card>  
+    <h5>Resumen Mensual</h5>
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+</p-card>
+    
+
+<div class="p-grid p-mt-3">
+    <div class="p-col-4" *ngFor="let item of data">
+  
+        <p-panel>
+            
+            <ng-template pTemplate="header">
+                Modelo: {{item.name}}
+            </ng-template>
+
+            <div class="p-grid">
+                <div class="p-col-8 p-text-right">
+                    <div class="p-my-2 p-text-bold">Volumen Procesado:</div>
+                    <div class="p-my-2 p-text-bold">Volumen Incluido en Contrato:</div>
+                    <div class="p-my-2 p-text-bold">Volumen Excedente:</div>
+                    <div class="p-my-2 p-text-bold">Costo Excedente:</div>
+                    <div class="p-my-2 p-text-bold">Importe Excedente:</div>
+                </div>
+                <div class="p-col-4 p-text-right">
+                    <div class="p-my-2 p-text-light">{{ item.volumProByN | number }}</div>
+                    <div class="p-my-2 p-text-light">{{ item.volumenXContratoByN | number}}</div>
+                    <div class="p-my-2 p-text-light">
+                        {{ (item.volumProByN >= item.volumenXContratoByN)?  (item.volumExcedenteByN | number) : 'Sin Excedente'}}
+                    </div>
+                    <div class="p-my-2 p-text-light">
+                        {{ item.precioExcedenteByN | currency:'MXN':'symbol-narrow':'1.4-4' }}
+                    </div>
+                    <div class="p-my-2 p-text-light">
+                        {{ (item.volumProByN >= item.volumenXContratoByN)?   (item.importeExcedenteByN | currency: 'MXN'): 'Sin Excedente' }}
+                    </div>
+                </div>
+            </div>
+            <p-divider *ngIf="item.registros[0].impresora.modelo == 'C356IF'"></p-divider>
+            <div class="p-grid" *ngIf="item.registros[0].impresora.modelo == 'C356IF'">
+                <div class="p-col-8 p-text-right">
+                    <div class="p-my-2 p-text-bold">Volumen Procesado Color:</div>
+                    <div class="p-my-2 p-text-bold">Volumen Incluido en Contrato:</div>
+                    <div class="p-my-2 p-text-bold">Volumen Excedente:</div>
+                    <div class="p-my-2 p-text-bold">Costo Excedente:</div>
+                    <div class="p-my-2 p-text-bold">Importe Excedente:</div>
+                </div>
+                <div class="p-col-4 p-text-right">
+                    <div class="p-my-2 p-text-light">{{ item.volumProColor | number }}</div>
+                    <div class="p-my-2 p-text-light">{{ item.volumenXContratoColor | number}}</div>
+                    <div class="p-my-2 p-text-light">
+                        {{ (item.volumProColor >= item.volumenXContratoColor)?  (item.volumExcedenteColor | number) : 'Sin Excedente'}}
+                    </div>
+                    <div class="p-my-2 p-text-light">
+                        {{ item.precioExcedenteColor | currency:'MXN':'symbol-narrow':'1.4-4' }}
+                    </div>
+                    <div class="p-my-2 p-text-light">
+                        {{ (item.volumProColor >= item.volumenXContratoColor )?   (item.importeExcedenteColor | currency: 'MXN'): 'Sin Excedente' }}
+                    </div>
+                </div>
+            </div>
+            <p-divider></p-divider>
+            <div class="p-grid">
+                <div class="p-col-8 p-text-right">
+                    <div class="p-my-2 p-text-bold">Impresoras Instaladas:</div>
+                    <div class="p-my-2 p-text-bold">Impresoras en Stock:</div>
+                    <div class="p-my-2 p-text-bold">Total Impresoras:</div>
+
+                </div>
+                <div class="p-col-4 p-text-right">
+                    <div class="p-my-2 p-text-light">{{ item.impresorasInstaladas }}</div>
+                    <div class="p-my-2 p-text-light">{{ item.impresorasStock }}</div>
+                    <div class="p-my-2 p-text-light">{{ item.ImpresorasTotal }}</div>
+                </div>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <div class="p-text-center"><i class="pi pi-print"></i></div>
+            </ng-template>
+
+        </p-panel>
+
+    </div>
+
+</div>

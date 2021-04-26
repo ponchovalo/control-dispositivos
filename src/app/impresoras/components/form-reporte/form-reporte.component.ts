@@ -18,6 +18,7 @@ import { FechaMes, Impresora, RegistroReporte } from './../../interfaces/impreso
 })
 export class FormReporteComponent implements OnInit {
 
+  mesBuscar: Date = new Date()
 
   mensajeGuardado: boolean = false;
 
@@ -33,9 +34,7 @@ export class FormReporteComponent implements OnInit {
 
   fechames: FechaMes = null;
 
-  @Input() mesSelected: Date;
-  @Input() opcion: string;
-  
+  hayReporte: boolean = false;
 
   constructor(
     private impresorasService: ImpresorasService,
@@ -44,12 +43,11 @@ export class FormReporteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    localStorage.getItem('registrosGuardados')? this.hayReporte = true: this.hayReporte = false
   }
 
-  generarReporte(opcion: string){
-    this.mensajeGuardado = false;
-    if(opcion == 'generar'){
-      if(this.mesSelected == null){
+  generarReporte(){
+      if(this.mesBuscar == null){
         this.messageService.add({severity:'error', summary: 'Error', detail: `Ingesar Fecha`, life: 3000});
         return
       }
@@ -65,21 +63,17 @@ export class FormReporteComponent implements OnInit {
               impresora : this.impresoras[i],
               vpbyn : 0,
               vpcolor : 0,
-              year : this.mesSelected.getFullYear(),
-              month: this.mesSelected.getMonth() + 1
+              year : this.mesBuscar.getFullYear(),
+              month: this.mesBuscar.getMonth() + 1
             }
             this.registros.push(registro)
           }
-          console.log(this.registros)
         }
       )
-    }else if(opcion == 'continuar'){
-      if(localStorage.getItem('registrosGuardados')){
-        this.registros = JSON.parse(localStorage.getItem('registrosGuardados'))
-        console.log(this.registros)
-      }
-    }
+  }
 
+  continuar(){
+    this.registros = JSON.parse(localStorage.getItem('registrosGuardados'))
   }
 
   selectRegistro(registro){
@@ -93,11 +87,14 @@ export class FormReporteComponent implements OnInit {
   }
 
   guardarReporte(){
-    this.mensajeGuardado = true;
     localStorage.setItem('registrosGuardados', JSON.stringify(this.registros));
+    this.registros = [];
+    this.mensajeGuardado = true;
+    this.hayReporte = true;
   }
 
   cerrarReporte(){
+    this.registros = JSON.parse(localStorage.getItem('registrosGuardados'))
     this.listar();
     this.mensajeGuardado = false;
     this.router.navigate[('/impresoras/reporte')]
@@ -126,9 +123,11 @@ export class FormReporteComponent implements OnInit {
 
         localStorage.removeItem('registrosGuardados');
         this.registros = [];
+        this.hayReporte = false;
 
       });
 
   }
+
 
 }

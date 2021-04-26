@@ -51,7 +51,34 @@ export class ControlTonerComponent implements OnInit {
   };
 
   dialogo: boolean = false;
+  dialogTitle: string = '';
+  dialogoTabla: boolean = false;
   submited: boolean = false;
+
+  toners: any = [
+    {
+      name: 'Cartucho 039 Negro'
+    },
+    {
+      name: 'Cartucho 041 Negro'
+    },
+    {
+      name: 'Cartucho GPR-57 Negro'
+    },
+    {
+      name: 'Cartucho GPR-58-Y Amarillo'
+    },
+    {
+      name: 'Cartucho GPR-58-M Magenta'
+    },
+    {
+      name: 'Cartucho GPR-58-C Cyan'
+    },
+    {
+      name:  'Cartucho GPR-58-K Negro'
+    }
+
+  ]
 
 
   constructor( 
@@ -92,7 +119,6 @@ export class ControlTonerComponent implements OnInit {
   }
 
   cerrarDialogo() {
-    this.registrosImpresora = [];
     this.initRegistro();
     this.initImpresora();
     this.dialogo = false;
@@ -106,34 +132,48 @@ export class ControlTonerComponent implements OnInit {
     );
   }
 
-  selectImpresora(impresora: Impresora){
-    this.registro.impresora_id = impresora.id;
-    this.registro.usuario = this.authService.usuario;
-    this.registro.fecha = new Date();
-    console.log(this.registro.usuario)
-    this.impresorasService.getImpresora(impresora.id)
-      .subscribe( impresora => this.impresora = impresora )
-    this.dialogo = true;
+  select(objeto: any, tipo: string){
+    if(tipo == 'nuevo'){
+      this.submited = true;
+      this.impresora = objeto
+      this.registro.impresora_id = this.impresora.id
+      this.registro.usuario = this.authService.usuario;
+      this.registro.fecha = new Date();
+      this.dialogo = true;
+    }else if(tipo == 'modificar'){
+      this.submited = false;
+      this.registro = objeto;
+      this.registro.fecha = new Date(Date.parse(objeto.fecha))
+      console.log(this.registro)
+      this.dialogo = true
+    }
   }
 
   guardarRegistro(){
-    this.submited = true; 
-    let nombreImpresora = this.impresora.nombre;
-    console.log(this.registro)
-    this.impresorasService.crearRegistroToner(this.registro)
-    .subscribe( registro => {
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: `Se agrego registro a:  ${nombreImpresora} `, life: 3000});
-      this.listarImpresoras();
-    })
-    this.cerrarDialogo();
+    if(this.submited){
+      let nombreImpresora = this.impresora.nombre;
+      this.impresorasService.crearRegistroToner(this.registro)
+      .subscribe( registro => {
+        this.messageService.add({severity:'success', summary: 'Éxito', detail: `Se agrego registro a:  ${nombreImpresora} `, life: 3000});
+        this.listarImpresoras();
+      })
+      this.cerrarDialogo();
+    }else{
+      
     }
+
+  }
 
   detallesImpresora(impresora: Impresora){
     this.impresorasService.getImpresora(impresora.id)
     .subscribe( impresora => this.impresora = impresora )
-
     this.registrosImpresora = impresora.registros;
-    console.log(this.registrosImpresora)
+    this.dialogoTabla = true;
+  }
+
+  selectRegistro(registro){
+    this.registro = registro;
+    this.dialogo = true;
 
   }
 

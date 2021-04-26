@@ -30,7 +30,7 @@ registerLocaleData(localeEs);
     HttpClientModule,
     AppRoutingModule,
     NgPrimeModule,
-    SharedModule,
+    SharedModule
   ],
   providers: [
     MessageService,

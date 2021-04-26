@@ -1,58 +1,17 @@
 <div>
-    <p-card subheader="Reporte Mensual">
-        <div class="p-grid">
-            <div class="p-col-12">
-                <p-panel header="Selecciona Mes">
-                    <div class="p-grid p-mt-1">
-                        <div class="p-field">
-                            <label for="monthpicker" class="p-mx-2">Mes</label>
-                            <p-calendar [(ngModel)]="mesSelected" (onBlur)="cambioMes()" class="p-mx-2" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
-                        </div>
-                        <div class="p-field" class="p-ml-6">
-                            <button (click)="buscarReporte()" pButton pRipple type="button" label="Buscar Reporte" class="p-button-outlined"></button>
-                        </div>
-                        <div class="p-field" class="p-ml-6">
-                            <button (click)="generaReporte()" pButton pRipple type="button" label="Generar Reporte" class="p-button-outlined"></button>
-                        </div>
-                        <div class="p-field" class="p-ml-6" *ngIf="hayRegistrosGuardados()">
-                            <button (click)="continuaReporte()" pButton pRipple type="button" label="Continuar Reporte" class="p-button-outlined"></button>
-                        </div>
-                    </div>
-                </p-panel>
-            </div>
-        </div>
-    </p-card>
-</div>
-<div class="p-mt-2" *ngIf="!reporte && buscar">
-    <p-card [header]="mesSelected | date:'MMMM' | uppercase" subheader="Detalles del mes" class="p-pt-2">
-        <p-tabView styleClass="tabview-custom">
-            <p-tabPanel>
-                <ng-template pTemplate="header">
-                    <i class="pi pi-print"></i>
-                    <span>Lista Impresoras</span>
-                </ng-template>
-                <app-listado-reporte [mesSelected]='mesSelected'></app-listado-reporte>
-            </p-tabPanel>
-            <p-tabPanel header="Resumen Mes">
-                <ng-template pTemplate="header">
-                    <i class="pi pi-chart-bar"></i>
-                    <span>Resumen</span>
-                </ng-template>
-                <app-resumen-reporte></app-resumen-reporte>
-            </p-tabPanel>
-            <p-tabPanel header="Header III">
-                <ng-template pTemplate="header">
-                    <i class="pi pi-search"></i>
-                    <span>Header III</span>
-                    <i class="pi pi-cog"></i>
-                </ng-template>
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia
-                    deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
-            </p-tabPanel>
-        </p-tabView>
-    </p-card>
+    <p-menubar [model]="items">
+        <ng-template pTemplate="start">  
+        </ng-template>
+        <ng-template pTemplate="end">
+            <input type="text" pInputText placeholder="Search">
+        </ng-template>
+    </p-menubar>
 </div>
 
-<div class="p-mt-2" *ngIf="reporte">
-    <app-form-reporte [mesSelected]='mesSelected' [opcion]='opcion'></app-form-reporte>
+<div class="p-mt-2" *ngIf="buscar">
+    <app-buscar-reporte></app-buscar-reporte>
+</div>
+
+<div class="p-mt-2" *ngIf="crear">
+    <app-form-reporte></app-form-reporte>
 </div>

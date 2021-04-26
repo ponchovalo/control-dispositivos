@@ -1,6 +1,7 @@
 <p-toast></p-toast>
+
 <p-card *ngIf="mensajeGuardado">
-    <div class="p-text-center">
+    <div class="p-text-center" >
         <span>Reporte Guardado</span> <br>
         <span>Para generar reporte completo presione Cerrar</span><br>
         <span>Para seguir editando eliga la opcion Continuar Reporte en el menu superior</span>
@@ -9,50 +10,75 @@
         </div>
     </div>
 </p-card>
-<p-card header="Generar Reporte" *ngIf="!mensajeGuardado && registros.length != 0">
-    <p-table #dt [value]="registros" dataKey="id" styleClass="p-datatable-sm" [rows]="10" [paginator]="false" [globalFilterFields]="['impresora.nombre', 'impresora.modelo', 'impresora.ip']">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Capturar Contadores</h5>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text"  (input) = "dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar..." />
-                </span>
+
+<p-card>
+    <div class="p-grid">
+        <div class="p-col-12">
+            <p-panel header="Selecciona Mes">
+                <div class="p-grid p-mt-1">
+                    <div class="p-field">
+                        <label for="monthpicker" class="p-mx-2">Mes</label>
+                        <p-calendar [(ngModel)]="mesBuscar" class="p-mx-2" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
+                    </div>
+                    <div class="p-field" class="p-ml-6">
+                        <button  pButton pRipple type="button" label="Generar Nuevo Reporte" class="p-button-outlined" (click)='generarReporte()'></button>
+                    </div>
+                    <div class="p-field" class="p-ml-6" *ngIf="hayReporte">
+                        <button  pButton pRipple type="button" label="Continuar Reporte" class="p-button-outlined" (click)='continuar()'></button>
+                    </div>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+</p-card>
+
+<div class="p-mt-2">
+    <p-card [header]="mesBuscar | date:'MMMM' |titlecase" *ngIf="registros.length != 0">
+        <p-table #dt [value]="registros" dataKey="id" styleClass="p-datatable-sm" [rows]="10" [paginator]="false" [globalFilterFields]="['impresora.nombre', 'impresora.modelo', 'impresora.ip']">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <h5 class="p-m-0">Capturar Contadores</h5>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text"  (input) = "dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar..." />
+                    </span>
+                </div>
+            </ng-template>
+    
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Modelo</th>
+                    <th>IP</th>
+                    <th>Contador 109</th>
+                    <th>Contador 124</th>
+                    <th>Contador 102</th>
+                    <th></th>
+    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-registro>
+                <tr>
+                    <td>{{registro.impresora.nombre}}</td>
+                    <td>{{registro.impresora.modelo}}</td>
+                    <td>{{registro.impresora.ip}}</td>
+                    <td>{{registro.contador109}}</td>
+                    <td>{{registro.contador124}}</td>
+                    <td>{{registro.contador102}}</td>
+                    <td class="p-text-center">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="selectRegistro(registro)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <ng-template pTemplate="footer">
+            <div class="p-text-right p-mr-4">
+                <button (click)="guardarReporte()" pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"></button>
             </div>
         </ng-template>
+    </p-card>
+</div>
 
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Nombre</th>
-                <th>Modelo</th>
-                <th>IP</th>
-                <th>Contador 109</th>
-                <th>Contador 124</th>
-                <th>Contador 102</th>
-                <th></th>
-
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-registro>
-            <tr>
-                <td>{{registro.impresora.nombre}}</td>
-                <td>{{registro.impresora.modelo}}</td>
-                <td>{{registro.impresora.ip}}</td>
-                <td>{{registro.contador109}}</td>
-                <td>{{registro.contador124}}</td>
-                <td>{{registro.contador102}}</td>
-                <td class="p-text-center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="selectRegistro(registro)"></button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-    <ng-template pTemplate="footer">
-        <div class="p-text-right p-mr-4">
-            <button (click)="guardarReporte()" pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"></button>
-        </div>
-    </ng-template>
-</p-card>
 
 <p-dialog *ngIf="registro" [(visible)]="dialogo" [closable]="false" [header]="registro.impresora.nombre" [style]="{width: '650px'}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
