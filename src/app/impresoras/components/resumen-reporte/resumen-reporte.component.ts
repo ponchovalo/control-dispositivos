@@ -22,6 +22,20 @@ export class ResumenReporteComponent implements OnInit {
   modelosIRA4545I: RegistroReporte[]
   modelosC356IF: RegistroReporte[]
 
+  modelos: string[] = [
+    'assets/LBP352DN.png',
+    'assets/MF525DW.png',
+    'assets/IRA4545I.png',
+    'assets/C356IF.png',
+  ]
+  headerModelos: string[] = [
+    'Modelo LBP352DN',
+    'Modelo MF525DW',
+    'Modelo IRA4545I',
+    'Modelo C356IF'
+  ]
+  
+
   constructor() {}
 
   ngOnInit(): void {
