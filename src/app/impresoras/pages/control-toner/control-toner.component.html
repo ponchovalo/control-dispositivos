@@ -29,16 +29,16 @@
                 <td>{{impresora.nombre}}</td>
                 <td>{{impresora.modelo}}</td>
                 <td>{{impresora.ubicacion}}</td>
-                <td class="p-text-center">{{impresora.registros.length}}</td>
+                <td class="p-text-center">{{impresora.cambios.length}}</td>
                 <td>
                     <span *ngIf="impresora.registros.length != 0; else noHayRegistros">
-                        {{impresora.registros[impresora.registros.length - 1].fecha | date: 'dd MMMM yyyy' |titlecase}}
+                        {{impresora.registros[impresora.cambios.length - 1].fecha | date: 'dd MMMM yyyy' |titlecase}}
                     </span>
                     <ng-template #noHayRegistros>No hay Registros</ng-template>
                 </td>
                 <td>
                     <span *ngIf="impresora.registros.length != 0; else noHayRegistros">
-                        {{impresora.registros[impresora.registros.length - 1].usuario.nombre }}
+                        {{impresora.registros[impresora.cambios.length - 1].usuario.nombre }}
                     </span>
                     <ng-template #noHayRegistros>No hay Registros</ng-template>
                 </td>
@@ -55,7 +55,7 @@
         <p-card [style]="{height: '510px'}">
             <div class="p-fluid p-formgrid p-grid p-mb-2">
                 <div class="p-col-12 p-mt-1 p-mb-2">
-                    IMPRESORA - {{impresora.nombre}}
+                    IMPRESORA - {{impresora.nombreimpresora}}
                 </div>
                 <div class="p-col-6 p-mb-6 p-mt-4">
                     <span class="p-float-label">

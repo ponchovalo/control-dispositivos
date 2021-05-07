@@ -39,15 +39,15 @@ export class ControlTonerComponent implements OnInit {
   }
 
   impresora: Impresora = {
-    id: 0,
-    nombre: "",
-    modelo: "",
-    serie: "",
-    ip: "",
-    mac: "",
-    edificio: "",
-    ubicacion: "",
-    registros: []
+    idimpresora: 0,
+    nombreimpresora: "",
+    modeloimpresora: "",
+    serieimpresora: "",
+    ipimpresora: "",
+    macimpresora: "",
+    edificioimpresora: "",
+    ubicacionimpresora: "",
+    registrosimpresora: []
   };
 
   dialogo: boolean = false;
@@ -88,20 +88,20 @@ export class ControlTonerComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.listarImpresoras();
+    this.listarImpresorasControlToner();
   }
 
   initImpresora() {
       this.impresora = {
-      id: 0,
-      nombre: "",
-      modelo: "",
-      serie: "",
-      ip: "",
-      mac: "",
-      edificio: "",
-      ubicacion: "",
-      registros: []
+      idimpresora: 0,
+      nombreimpresora: "",
+      modeloimpresora: "",
+      serieimpresora: "",
+      ipimpresora: "",
+      macimpresora: "",
+      edificioimpresora: "",
+      ubicacionimpresora: "",
+      registrosimpresora: []
     }
   }
 
@@ -126,9 +126,9 @@ export class ControlTonerComponent implements OnInit {
   }
 
 
-  listarImpresoras(){
-    this.impresorasService.getImpresoras().subscribe(
-      impresoras => { this.impresoras = impresoras}
+  listarImpresorasControlToner(){
+    this.impresorasService.getImpresorasControlToner().subscribe(
+      impresoras => { this.impresoras = impresoras, console.log(impresoras)}
     );
   }
 
@@ -136,7 +136,7 @@ export class ControlTonerComponent implements OnInit {
     if(tipo == 'nuevo'){
       this.submited = true;
       this.impresora = objeto
-      this.registro.impresora_id = this.impresora.id
+      this.registro.impresora_id = this.impresora.idimpresora
       this.registro.usuario = this.authService.usuario;
       this.registro.fecha = new Date();
       this.dialogo = true;
@@ -151,11 +151,11 @@ export class ControlTonerComponent implements OnInit {
 
   guardarRegistro(){
     if(this.submited){
-      let nombreImpresora = this.impresora.nombre;
+      let nombreImpresora = this.impresora.nombreimpresora;
       this.impresorasService.crearRegistroToner(this.registro)
       .subscribe( registro => {
         this.messageService.add({severity:'success', summary: 'Éxito', detail: `Se agrego registro a:  ${nombreImpresora} `, life: 3000});
-        this.listarImpresoras();
+        this.listarImpresorasControlToner();
       })
       this.cerrarDialogo();
     }else{
@@ -165,9 +165,9 @@ export class ControlTonerComponent implements OnInit {
   }
 
   detallesImpresora(impresora: Impresora){
-    this.impresorasService.getImpresora(impresora.id)
+    this.impresorasService.getImpresora(impresora.idimpresora)
     .subscribe( impresora => this.impresora = impresora )
-    this.registrosImpresora = impresora.registros;
+    this.registrosImpresora = impresora.registrosimpresora;
     this.dialogoTabla = true;
   }
 

@@ -41,25 +41,20 @@ export class AuthService {
 
   login(usuario: Usuario): Observable<any>{
 
-    const urlEndpoint = 'http://localhost:8080/oauth/token';
-    const credenciales = btoa('control-dispositivos' + ':' + '123456');
-    const httpHeaders = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded',
-                                          'Authorization': 'Basic ' + credenciales });
-    let params = new URLSearchParams();
-    params.set('grant_type', 'password');
-    params.set('username', usuario.username);
-    params.set('password', usuario.password);
+    const urlEndpoint = 'http://localhost:54244/api/usuarios/login';
 
-    return this.http.post<any>(urlEndpoint, params.toString(), {headers: httpHeaders})
+    return this.http.post<any>(urlEndpoint, {user: usuario.username, password: usuario.password})
   }
 
 
   guardarUsuario(accessToken: string): void{
     let payload = this.obtenerDatosToken(accessToken);
+    console.log(payload)
     this._usuario = new Usuario();
-    this._usuario.username = payload.user_name;
-    this._usuario.id = payload.id;
-    this._usuario.nombre = payload.nombre_usuario;
+    this._usuario.username = payload.nombre;
+    this._usuario.nombre = payload.nombre;
+    this._usuario.id = payload.idusuario;
+    this._usuario.puesto = payload.puesto;
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
 
@@ -78,7 +73,7 @@ export class AuthService {
 
   isAuthenticated(): boolean{
     let payload = this.obtenerDatosToken(this.token);
-    if(payload != null && payload.user_name && payload.user_name.length > 0){
+    if(payload != null && payload.nombre && payload.nombre.length > 0){
       return true
     }
     return false

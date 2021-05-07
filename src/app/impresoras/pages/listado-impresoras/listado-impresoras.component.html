@@ -3,11 +3,10 @@
     <p-toolbar>
         <div class="p-toolbar-group-left">
             <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="abrirNuevo()"></button>
-            <button pButton pRipple label="Borrar" icon="pi pi-trash" class="p-button-danger"></button>
         </div>
     </p-toolbar>
 
-    <p-table #dt [value]="impresoras" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['nombre', 'modelo', 'edificio','ip']">
+    <p-table #dt [value]="impresoras" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['nombreimpresora', 'modeloimpresora', 'edificioimpresora','ipimpresora']">
 
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
@@ -33,14 +32,15 @@
         </ng-template>
         <ng-template pTemplate="body" let-impresora>
             <tr>
-                <td>{{impresora.nombre}}</td>
-                <td>{{impresora.modelo}}</td>
-                <td>{{impresora.serie}}</td>
-                <td>{{impresora.ip}}</td>
-                <td>{{impresora.edificio}}</td>
-                <td>{{impresora.ubicacion}}</td>
+                <td>{{impresora.nombreimpresora}}</td>
+                <td>{{impresora.modeloimpresora}}</td>
+                <td>{{impresora.serieimpresora}}</td>
+                <td>{{impresora.ipimpresora}}</td>
+                <td>{{impresora.edificioimpresora}}</td>
+                <td>{{impresora.ubicacionimpresora}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editarImpresora(impresora)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2" (click)="confirmacionImpresora(impresora)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -53,42 +53,42 @@
 
             <div class="p-field p-col-12 p-md-12">
                 <label for="name">Nombre</label>
-                <input type="text" pInputText id="name" [(ngModel)]="impresora.nombre" required autofocus />
-                <small class="p-error" *ngIf="submited && !impresora.nombre">El nombre es requerido</small>
+                <input type="text" pInputText id="name" [(ngModel)]="impresora.nombreimpresora" required autofocus />
+                <small class="p-error" *ngIf="submited && !impresora.nombreimpresora">El nombre es requerido</small>
             </div>
 
 
             <div class="p-field p-col-12 p-md-6">
                 <label for="inventoryStatus">Modelo</label>
-                <p-dropdown [(ngModel)]="impresora.modelo" optionLabel="nombre" optionValue="nombre" inputId="modelo" [options]="modelos" placeholder="Select">
+                <p-dropdown [(ngModel)]="impresora.modeloimpresora" optionLabel="nombre" optionValue="nombre" inputId="modelo" [options]="modelos" placeholder="Select">
                 </p-dropdown>
             </div>
             <div class="p-field p-col-12 p-md-6">
                 <label for="name">Serie</label>
-                <input type="text" pInputText id="serie" [(ngModel)]="impresora.serie" required />
+                <input type="text" pInputText id="serie" [(ngModel)]="impresora.serieimpresora" required />
                 <!--<small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>-->
             </div>
 
             <div class="p-field p-col-12 p-md-6">
                 <label for="name">IP</label>
-                <input type="text" pInputText id="ip" [(ngModel)]="impresora.ip" required />
+                <input type="text" pInputText id="ip" [(ngModel)]="impresora.ipimpresora" required />
                 <!--<small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>-->
             </div>
             <div class="p-field p-col-12 p-md-6">
                 <label for="name">MAC</label>
-                <input type="text" pInputText id="mac" [(ngModel)]="impresora.mac" required />
+                <input type="text" pInputText id="mac" [(ngModel)]="impresora.macimpresora" required />
                 <!--<small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>-->
             </div>
 
             <div class="p-field p-col-12 p-md-12">
                 <label for="name">Edificio</label>
-                <input type="text" pInputText id="edificio" [(ngModel)]="impresora.edificio" required />
+                <input type="text" pInputText id="edificio" [(ngModel)]="impresora.edificioimpresora" required />
                 <!--<small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>-->
             </div>
 
             <div class="p-field p-col-12 p-md-12">
                 <label for="name">Ubicacion</label>
-                <input type="text" pInputText id="ubicacion" [(ngModel)]="impresora.ubicacion" required />
+                <input type="text" pInputText id="ubicacion" [(ngModel)]="impresora.ubicacionimpresora" required />
                 <!--<small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>-->
             </div>
 
@@ -99,6 +99,23 @@
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="cerrarDialogo()"></button>
         <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="guardarImpresora()"></button>
+    </ng-template>
+
+</p-dialog>
+
+<p-dialog [(visible)]="dialogoBorrar" [style]="{width: '450px'}" header="Aviso" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div>
+            La impresora {{impresora.nombreimpresora}} se borrara definitivamente de la base de datos
+            ¿Deseas Continuar?
+        </div>
+        
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="No" icon="pi pi-times" class="p-button-text" (click)="cerrarDialogoBorrar()"></button>
+        <button pButton pRipple label="Ok" icon="pi pi-check" class="p-button-text" (click)="borrarImpresora()"></button>
     </ng-template>
 
 </p-dialog>

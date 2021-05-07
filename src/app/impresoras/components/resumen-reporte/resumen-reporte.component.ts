@@ -85,16 +85,16 @@ export class ResumenReporteComponent implements OnInit {
   }
 
   filtrar(){
-    this.modelosILBP352DN = this.registros.filter(reg => reg.impresora.modelo == 'ILBP352DN')
-    this.modelosMF525DW = this.registros.filter(reg => reg.impresora.modelo == 'MF525DW')
-    this.modelosIRA4545I = this.registros.filter(reg => reg.impresora.modelo == 'IRA4545I')
-    this.modelosC356IF = this.registros.filter(reg => reg.impresora.modelo == 'C356IF')
+    this.modelosILBP352DN = this.registros.filter(reg => reg.impresora.modeloimpresora == 'ILBP352DN')
+    this.modelosMF525DW = this.registros.filter(reg => reg.impresora.modeloimpresora == 'MF525DW')
+    this.modelosIRA4545I = this.registros.filter(reg => reg.impresora.modeloimpresora == 'IRA4545I')
+    this.modelosC356IF = this.registros.filter(reg => reg.impresora.modeloimpresora == 'C356IF')
   }
 
   construirData(){
     this.data = [
       {
-        name: this.modelosILBP352DN[0].impresora.modelo,
+        name: this.modelosILBP352DN[0].impresora.modeloimpresora,
         registros: this.modelosILBP352DN,
         volumProByN: this.volumenProcesadoBYN(this.modelosILBP352DN),
         volumProColor: this.volumenProcesadoColor(this.modelosILBP352DN),
@@ -106,12 +106,12 @@ export class ResumenReporteComponent implements OnInit {
         precioExcedenteColor: 0,
         importeExcedenteByN: this.importeByN(this.modelosILBP352DN, 10714, 0.1578),
         importeExcedenteColor: this.importeByN(this.modelosILBP352DN, 0, 0) ,
-        impresorasInstaladas: this.modelosILBP352DN.filter(reg => reg.impresora.ip != 'STOCK').length,
-        impresorasStock: this.modelosILBP352DN.filter(reg => reg.impresora.ip == 'STOCK').length,
+        impresorasInstaladas: this.modelosILBP352DN.filter(reg => reg.impresora.ipimpresora != 'STOCK').length,
+        impresorasStock: this.modelosILBP352DN.filter(reg => reg.impresora.ipimpresora == 'STOCK').length,
         ImpresorasTotal: this.modelosILBP352DN.length
       },
       {
-        name: this.modelosMF525DW[0].impresora.modelo,
+        name: this.modelosMF525DW[0].impresora.modeloimpresora,
         registros: this.modelosMF525DW,
         volumProByN: this.volumenProcesadoBYN(this.modelosMF525DW),
         volumProColor: this.volumenProcesadoColor(this.modelosMF525DW),
@@ -123,12 +123,12 @@ export class ResumenReporteComponent implements OnInit {
         precioExcedenteColor: 0,
         importeExcedenteByN: this.importeByN(this.modelosMF525DW, 57659, 0.216),
         importeExcedenteColor: this.importeByN(this.modelosMF525DW, 0, 0) ,
-        impresorasInstaladas: this.modelosMF525DW.filter(reg => reg.impresora.ip != 'STOCK').length,
-        impresorasStock: this.modelosMF525DW.filter(reg => reg.impresora.ip == 'STOCK').length,
+        impresorasInstaladas: this.modelosMF525DW.filter(reg => reg.impresora.ipimpresora != 'STOCK').length,
+        impresorasStock: this.modelosMF525DW.filter(reg => reg.impresora.ipimpresora == 'STOCK').length,
         ImpresorasTotal: this.modelosMF525DW.length
       },
       {
-        name: this.modelosIRA4545I[0].impresora.modelo,
+        name: this.modelosIRA4545I[0].impresora.modeloimpresora,
         registros: this.modelosIRA4545I,
         volumProByN: this.volumenProcesadoBYN(this.modelosIRA4545I),
         volumProColor: this.volumenProcesadoColor(this.modelosIRA4545I),
@@ -140,12 +140,12 @@ export class ResumenReporteComponent implements OnInit {
         precioExcedenteColor: 0,
         importeExcedenteByN: this.importeByN(this.modelosIRA4545I, 214476, 0.1303),
         importeExcedenteColor: this.importeByN(this.modelosIRA4545I, 0, 0) ,
-        impresorasInstaladas: this.modelosIRA4545I.filter(reg => reg.impresora.ip != 'STOCK').length,
-        impresorasStock: this.modelosIRA4545I.filter(reg => reg.impresora.ip == 'STOCK').length,
+        impresorasInstaladas: this.modelosIRA4545I.filter(reg => reg.impresora.ipimpresora != 'STOCK').length,
+        impresorasStock: this.modelosIRA4545I.filter(reg => reg.impresora.ipimpresora == 'STOCK').length,
         ImpresorasTotal: this.modelosIRA4545I.length
       },
       {
-        name: this.modelosC356IF[0].impresora.modelo,
+        name: this.modelosC356IF[0].impresora.modeloimpresora,
         registros: this.modelosC356IF,
         volumProByN: this.volumenProcesadoBYN(this.modelosC356IF),
         volumProColor: this.volumenProcesadoColor(this.modelosC356IF),
@@ -157,8 +157,8 @@ export class ResumenReporteComponent implements OnInit {
         precioExcedenteColor: 1.3357,
         importeExcedenteByN: this.importeByN(this.modelosC356IF, 15696, 0.3231),
         importeExcedenteColor: this.importeColor(this.modelosC356IF, 26788, 1.3357) ,
-        impresorasInstaladas: this.modelosC356IF.filter(reg => reg.impresora.ip != 'STOCK').length,
-        impresorasStock: this.modelosC356IF.filter(reg => reg.impresora.ip == 'STOCK').length,
+        impresorasInstaladas: this.modelosC356IF.filter(reg => reg.impresora.ipimpresora != 'STOCK').length,
+        impresorasStock: this.modelosC356IF.filter(reg => reg.impresora.ipimpresora == 'STOCK').length,
         ImpresorasTotal: this.modelosC356IF.length
       }
     ]
@@ -191,10 +191,10 @@ export class ResumenReporteComponent implements OnInit {
     return this.volumenExcedenteColor(modelos, volCont) * precio
   }
   impresorasInstaladas(modelos: RegistroReporte[]): number{
-    return modelos.filter(reg => reg.impresora.ip != 'STOCK').length
+    return modelos.filter(reg => reg.impresora.ipimpresora != 'STOCK').length
   }
   impresorasStock(modelos: RegistroReporte[]): number{
-    return modelos.filter(reg => reg.impresora.ip == 'STOCK').length
+    return modelos.filter(reg => reg.impresora.ipimpresora == 'STOCK').length
   }
 
 }

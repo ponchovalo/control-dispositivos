@@ -1,15 +1,15 @@
 import { Usuario } from "src/app/usuarios/interfaces/usuario.interface";
 
 export interface Impresora {
-    id: number;
-    nombre:string;
-    modelo: string,
-    serie: string,
-    ip: string,
-    mac: string,
-    edificio: string,
-    ubicacion: string
-    registros: Registro[];
+    idimpresora?: number;
+    nombreimpresora?:string;
+    modeloimpresora?: string,
+    serieimpresora?: string,
+    ipimpresora?: string,
+    macimpresora?: string,
+    edificioimpresora?: string,
+    ubicacionimpresora?: string
+    registrosimpresora?: Registro[];
 }
 
 export interface Modelo {

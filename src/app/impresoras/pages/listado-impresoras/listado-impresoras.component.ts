@@ -20,18 +20,19 @@ export class ListadoImpresorasComponent implements OnInit {
   impresoras: Impresora[] = [];
 
   impresora: Impresora = {
-    id: 0,
-      nombre: "",
-      modelo: "",
-      serie: "",
-      ip: "",
-      mac: "",
-      edificio: "",
-      ubicacion: "",
-      registros: []
+    idimpresora: 0,
+    nombreimpresora: "",
+    modeloimpresora: "",
+    serieimpresora: "",
+    ipimpresora: "",
+    macimpresora: "",
+    edificioimpresora: "",
+    ubicacionimpresora: "",
+    registrosimpresora: []
   };
 
   dialogo: boolean = false;
+  dialogoBorrar: boolean = false;
   submited: boolean = false;
 
   modelos: Modelo[] = [
@@ -69,15 +70,15 @@ export class ListadoImpresorasComponent implements OnInit {
 
   initImpresora() {
       this.impresora = {
-      id: 0,
-      nombre: "",
-      modelo: "",
-      serie: "",
-      ip: "",
-      mac: "",
-      edificio: "",
-      ubicacion: "",
-      registros: []
+      idimpresora: 0,
+      nombreimpresora: "",
+      modeloimpresora: "",
+      serieimpresora: "",
+      ipimpresora: "",
+      macimpresora: "",
+      edificioimpresora: "",
+      ubicacionimpresora: "",
+      registrosimpresora: []
     }
   };
 
@@ -101,7 +102,7 @@ export class ListadoImpresorasComponent implements OnInit {
   }
 
   editarImpresora(impresora: Impresora){
-    this.impresorasService.getImpresora(impresora.id)
+    this.impresorasService.getImpresora(impresora.idimpresora)
       .subscribe( impresora => this.impresora = impresora )
     this.dialogo = true;
   }
@@ -109,25 +110,43 @@ export class ListadoImpresorasComponent implements OnInit {
   guardarImpresora(){
     this.submited = true;
 
-    if(this.impresora.nombre.trim()){
-      if(this.impresora.id !== 0){
+    if(this.impresora.nombreimpresora.trim()){
+      if(this.impresora.idimpresora !== 0){
         this.impresorasService.actualizar(this.impresora)
           .subscribe( impresora => {
-            this.messageService.add({severity:'success', summary: 'Éxito', detail: `Impresora ${impresora.nombre} Actualizada Correctamente`, life: 3000});
+            this.messageService.add({severity:'success', summary: 'Éxito', detail: `Impresora ${impresora.nombreimpresora} Actualizada Correctamente`, life: 3000});
             this.listarImpresoras();
           })
         
       }else{
         this.impresorasService.crear(this.impresora)
           .subscribe( impresora => {
-            this.messageService.add({severity:'success', summary: 'Éxito', detail: `Impresora ${impresora.nombre} Agregada Correctamente`, life: 3000});
+            this.messageService.add({severity:'success', summary: 'Éxito', detail: `Impresora ${impresora.nombreimpresora} Agregada Correctamente`, life: 3000});
             this.listarImpresoras();
           })
       }
       this.cerrarDialogo();
     }
+  }
 
+  confirmacionImpresora(impresora: Impresora){
+    this.impresora = impresora;
+    this.dialogoBorrar = true;
+    console.log('borrar impresora'+impresora.nombreimpresora)
+  }
 
+  cerrarDialogoBorrar(){
+    this.dialogoBorrar = false;
+    this.initImpresora();
+  }
+
+  borrarImpresora(){
+    this.impresorasService.deleteImpresora(this.impresora.idimpresora)
+    .subscribe( impresora => {
+      this.messageService.add({severity:'success', summary: 'Éxito', detail: `Impresora ${impresora.nombreimpresora} Eliminada Correctamente`, life: 3000});
+      this.cerrarDialogoBorrar();
+      this.listarImpresoras();
+    })
   }
 
 

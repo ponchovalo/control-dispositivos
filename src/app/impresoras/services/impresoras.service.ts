@@ -10,7 +10,7 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class ImpresorasService {
     
-    private urlBase: string = "http://localhost:8080/api/impresoras";
+    private urlBase: string = "http://localhost:54244/api/impresoras";
     private urlBaseToner: string = "http://localhost:8080/api/controltoner";
     private urlBaseReporte: string = "http://localhost:8080/api/reporteimpresora";
     
@@ -31,28 +31,40 @@ export class ImpresorasService {
     }
 
     getImpresoras(): Observable<Impresora[]>{
-        return this.http.get<Impresora[]>(this.urlBase);
+        return this.http.get<Impresora[]>(`${this.urlBase}/listar`);
     }
 
     crear(impresora: Impresora) : Observable<Impresora> {
-      return this.http.post<Impresora>(this.urlBase, impresora);
+      return this.http.post<Impresora>(`${this.urlBase}/crear`, impresora);
     }
 
     getImpresora(id:any): Observable<Impresora>{
-      return this.http.get<Impresora>(`${this.urlBase}/${id}`);
+      return this.http.get<Impresora>(`${this.urlBase}/mostrar/${id}`);
     }
   
     actualizar(impresora: Impresora): Observable<Impresora>{
-      return this.http.put<Impresora>(`${this.urlBase}/${impresora.id}`, impresora )
+      return this.http.put<Impresora>(`${this.urlBase}/actualizar`, impresora )
     }
 
+    deleteImpresora(id:any): Observable<Impresora> {
+      return this.http.delete<Impresora>(`${this.urlBase}/eliminar/${id}`)
+    }
+
+
+
+
+    getImpresorasControlToner(): Observable<Impresora[]>{
+      return this.http.get<Impresora[]>(`${this.urlBase}/listarcambios`);
+    }
+
+
+
+
     crearRegistroToner(registro: Registro) : Observable<Registro> {
-      console.log(registro)
       return this.http.post<Registro>(this.urlBaseToner, registro);
     }
 
     getRegistros(fechames: FechaMes): Observable<RegistroReporte[]>{
-      console.log(fechames.year + ' '+fechames.month)
       return this.http.get<RegistroReporte[]>(`${this.urlBaseReporte}/${fechames.year}/${fechames.month}`);
     }
 

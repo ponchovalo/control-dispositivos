@@ -36,12 +36,13 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(this.usuario).subscribe(response => {
 
-      this.authService.guardarUsuario(response.access_token);
-      this.authService.guardarToken(response.access_token);
+      this.authService.guardarUsuario(response.token);
+      this.authService.guardarToken(response.token);
 
       this.mostrarMensaje();
 
       this.router.navigate(['/dashboard'])
+      console.log(response)
       
     }, err => {
       if(err.status == 400){
@@ -54,7 +55,7 @@ export class LoginComponent implements OnInit {
     let usuario = this.authService.usuario
     setTimeout(() => {
       console.log(usuario.username)
-      this.messageService.add({severity:'success', summary: 'Éxito', detail: `Bienvenido ${usuario.username} `, life: 3000});
+      this.messageService.add({severity:'success', summary: 'Éxito', detail: `Bienvenido ${usuario.nombre} `, life: 3000});
     }, 500);
   }
 
