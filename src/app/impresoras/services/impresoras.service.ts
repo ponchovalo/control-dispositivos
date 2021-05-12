@@ -11,7 +11,7 @@ import { AuthService } from '../../auth/auth.service';
 export class ImpresorasService {
     
     private urlBase: string = "http://localhost:54244/api/impresoras";
-    private urlBaseToner: string = "http://localhost:8080/api/controltoner";
+    private urlBaseToner: string = "http://localhost:54244/api/controltoner";
     private urlBaseReporte: string = "http://localhost:8080/api/reporteimpresora";
     
 
@@ -56,13 +56,18 @@ export class ImpresorasService {
     getImpresorasControlToner(): Observable<Impresora[]>{
       return this.http.get<Impresora[]>(`${this.urlBase}/listarcambios`);
     }
-
-
-
-
     crearRegistroToner(registro: Registro) : Observable<Registro> {
-      return this.http.post<Registro>(this.urlBaseToner, registro);
+      return this.http.post<Registro>(`${this.urlBaseToner}/crear`, registro);
     }
+    actualizarRegistroToner(registro: Registro) : Observable<Registro> {
+      return this.http.put<Registro>(`${this.urlBaseToner}/actualizar`, registro);
+    }
+    deleteRegistroToner(id:any): Observable<Registro> {
+      return this.http.delete<Registro>(`${this.urlBaseToner}/eliminar/${id}`)
+    }
+    
+
+
 
     getRegistros(fechames: FechaMes): Observable<RegistroReporte[]>{
       return this.http.get<RegistroReporte[]>(`${this.urlBaseReporte}/${fechames.year}/${fechames.month}`);

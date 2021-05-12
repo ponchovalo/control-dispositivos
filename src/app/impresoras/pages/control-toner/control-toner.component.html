@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <div class="card">
-    <p-table #dt [value]="impresoras" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['nombre', 'modelo', 'ubicacion']">
+    <p-table #dt [value]="impresoras" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['nombreimpresora', 'modeloimpresora']">
 
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
@@ -26,40 +26,40 @@
         </ng-template>
         <ng-template pTemplate="body" let-impresora>
             <tr>
-                <td>{{impresora.nombre}}</td>
-                <td>{{impresora.modelo}}</td>
-                <td>{{impresora.ubicacion}}</td>
+                <td>{{impresora.nombreimpresora}}</td>
+                <td>{{impresora.modeloimpresora}}</td>
+                <td>{{impresora.ubicacionimpresora}}</td>
                 <td class="p-text-center">{{impresora.cambios.length}}</td>
                 <td>
-                    <span *ngIf="impresora.registros.length != 0; else noHayRegistros">
-                        {{impresora.registros[impresora.cambios.length - 1].fecha | date: 'dd MMMM yyyy' |titlecase}}
+                    <span *ngIf="impresora.cambios.length != 0; else noHayRegistros">
+                        {{impresora.cambios[impresora.cambios.length - 1].fecha | date: 'dd MMMM yyyy' |titlecase}}
                     </span>
                     <ng-template #noHayRegistros>No hay Registros</ng-template>
                 </td>
                 <td>
-                    <span *ngIf="impresora.registros.length != 0; else noHayRegistros">
-                        {{impresora.registros[impresora.cambios.length - 1].usuario.nombre }}
+                    <span *ngIf="impresora.cambios.length != 0; else noHayRegistros">
+                        {{impresora.cambios[impresora.cambios.length - 1].usuario }}
                     </span>
                     <ng-template #noHayRegistros>No hay Registros</ng-template>
                 </td>
                 <td>
-                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-success p-mr-2" (click)="select(impresora, 'nuevo')"></button>
+                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-success p-mr-2" (click)="select(impresora)"></button>
                     <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2" (click)="detallesImpresora(impresora)"></button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-<p-dialog [(visible)]="dialogo" [style]="{width: '700px'}" header="Agregar Cambio de Toner" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="dialogo" [style]="{width: '700px'}" [header]="dialogTitle" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <p-card [style]="{height: '510px'}">
-            <div class="p-fluid p-formgrid p-grid p-mb-2">
+            <div class="p-fluid p-formgrid p-grid p-mb-2">  
                 <div class="p-col-12 p-mt-1 p-mb-2">
                     IMPRESORA - {{impresora.nombreimpresora}}
                 </div>
                 <div class="p-col-6 p-mb-6 p-mt-4">
                     <span class="p-float-label">
-                        <p-calendar inputId="basic" [(ngModel)]="registro.fecha"></p-calendar>
+                        <p-calendar inputId="basic" [(ngModel)]="registro.fecha" dateFormat="dd-MM-yy" ></p-calendar>
                         <label for="float-input">Fecha</label>
                     </span>
                 </div>
@@ -101,7 +101,7 @@
 <p-dialog [(visible)]="dialogoTabla" [style]="{width: '900px'}" header="Historial Cambios de Toner" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         
-            <p-table #dt [value]="registrosImpresora" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['fecha', 'usuario.nombre']">
+            <p-table #dt [value]="impresora.cambios" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['fecha', 'usuario']">
 
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
@@ -126,19 +126,36 @@
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
-                <td>{{ item.fecha }}</td>
+                <td>{{ item.fecha | date: 'dd MMMM yyyy' |titlecase}}</td>
                 <td>{{ item.contador109 }}</td>
                 <td>{{ item.contador124 }}</td>
                 <td>{{ item.contador102 }}</td>
-                <td>{{ item.usuario.nombre }}</td>
+                <td>{{ item.usuario }}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2" (click)="select(item, 'modificar')"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2" (click)="detallesImpresora(impresora)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2" (click)="selectRegistro(item)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2" (click)="confirmar(item)"></button>
                 </td>
             </tr>
         </ng-template>
     </p-table>      
 
+    </ng-template>
+
+</p-dialog>
+
+<p-dialog [(visible)]="dialogEliminar" [style]="{width: '450px'}" header="Aviso" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div>
+            Se eliminara el registro con fecha del {{registro.fecha | date: 'dd MMMM yyyy' |titlecase }}  de la impresora {{impresora.nombreimpresora}}
+            ¿Deseas Continuar?
+        </div>
+        
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="No" icon="pi pi-times" class="p-button-text" (click)="cerrarDialogoEliminar()"></button>
+        <button pButton pRipple label="Ok" icon="pi pi-check" class="p-button-text" (click)="borrarRegistro()"></button>
     </ng-template>
 
 </p-dialog>

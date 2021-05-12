@@ -28,7 +28,7 @@ export class ListadoImpresorasComponent implements OnInit {
     macimpresora: "",
     edificioimpresora: "",
     ubicacionimpresora: "",
-    registrosimpresora: []
+    cambios: []
   };
 
   dialogo: boolean = false;
@@ -78,7 +78,7 @@ export class ListadoImpresorasComponent implements OnInit {
       macimpresora: "",
       edificioimpresora: "",
       ubicacionimpresora: "",
-      registrosimpresora: []
+      cambios: []
     }
   };
 

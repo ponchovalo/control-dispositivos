@@ -9,7 +9,7 @@ export interface Impresora {
     macimpresora?: string,
     edificioimpresora?: string,
     ubicacionimpresora?: string
-    registrosimpresora?: Registro[];
+    cambios?: Registro[];
 }
 
 export interface Modelo {
@@ -18,14 +18,14 @@ export interface Modelo {
 }
 
 export interface Registro {
-    id: number;
-    contador109: number;
-    contador124: number;
-    contador102: number;
-    impresora_id: number;
-    usuario: Usuario;
-    toner: string;
-    fecha: Date;
+    idcontrol?: number;
+    contador109?: number;
+    contador124?: number;
+    contador102?: number;
+    idimpresora?: number;
+    idusuario: number;
+    toner?: string;
+    fecha?: Date;
 }
 
 export interface RegistroReporte {
