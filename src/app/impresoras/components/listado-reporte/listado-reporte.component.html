@@ -2,10 +2,11 @@
     <ng-template pTemplate="caption">
         <div class="p-d-flex p-ai-center p-jc-between">
             <h5 class="p-m-0">Detalles de Reporte</h5>
+            
             <span class="p-input-icon-left">
-                <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
-                <i class="pi pi-search"></i>
-                <input pInputText type="text"  (input) = "dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar..." />
+                <button type="button" pButton pRipple  (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom">
+                    <i class="pi pi-file-excel"></i>
+                </button>
             </span>
         </div>
     </ng-template>
@@ -23,9 +24,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-registro>
         <tr>
-            <td>{{registro.impresora.nombre}}</td>
-            <td>{{registro.impresora.modelo}}</td>
-            <td class="p-text-center">{{registro.impresora.ip}}</td>
+            <td>{{registro.impresora.nombreimpresora}}</td>
+            <td>{{registro.impresora.modeloimpresora}}</td>
+            <td class="p-text-center">{{registro.impresora.ipimpresora}}</td>
             <td class="p-text-center">{{registro.contador109}}</td>
             <td class="p-text-center">{{registro.contador124}}</td>
             <td class="p-text-center">{{registro.contador102}}</td>

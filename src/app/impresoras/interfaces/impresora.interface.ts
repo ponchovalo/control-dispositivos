@@ -29,7 +29,7 @@ export interface Registro {
 }
 
 export interface RegistroReporte {
-    id: number;
+    idreporte: number;
     contador109: number;
     contador124: number;
     contador102: number;
@@ -61,4 +61,16 @@ export interface ModeloResumen {
     impresorasInstaladas: number,
     impresorasStock: number,
     ImpresorasTotal: number
+}
+
+export interface ReporteExcel {
+    idregistro?: number,
+    nombreimpresora?: string,
+    modeloimpresora?: string,
+    ipimpresora?: string,
+    contador109?: number;
+    contador124?: number;
+    contador102?: number;
+    vpbyn?: number;
+    vpcolor?: number;
 }

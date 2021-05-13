@@ -45,7 +45,8 @@ import {DividerModule} from 'primeng/divider';
     SplitButtonModule,
     FieldsetModule,
     ChartModule,
-    DividerModule
+    DividerModule,
+
 
   ]
 })

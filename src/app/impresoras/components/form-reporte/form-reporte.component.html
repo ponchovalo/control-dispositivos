@@ -1,15 +1,6 @@
 <p-toast></p-toast>
 
-<p-card *ngIf="mensajeGuardado">
-    <div class="p-text-center" >
-        <span>Reporte Guardado</span> <br>
-        <span>Para generar reporte completo presione Cerrar</span><br>
-        <span>Para seguir editando eliga la opcion Continuar Reporte en el menu superior</span>
-        <div class="p-field p-mt-4">
-            <button (click)="cerrarReporte()" pButton pRipple type="button" label="Cerrar" class="p-button-outlined"></button>
-        </div>
-    </div>
-</p-card>
+
 
 <p-card>
     <div class="p-grid">
@@ -32,9 +23,25 @@
     </div>
 </p-card>
 
+
+<p-messages *ngIf="mensajeGuardado" severity="info">
+    <ng-template pTemplate>
+        <div class="p-field p-col-4 p-mt-4">
+            <span class="custom-message">I am the one who knocks.</span>
+        </div>
+        <div class="p-field p-col-6 p-mt-4 p-text-right" >
+            <button (click)="cerrarReporte()" pButton pRipple type="button" label="Cerrar" class="p-button-outlined"></button>
+        </div>
+    </ng-template>
+    
+</p-messages>
+
+
+
+
 <div class="p-mt-2">
     <p-card [header]="mesBuscar | date:'MMMM' |titlecase" *ngIf="registros.length != 0">
-        <p-table #dt [value]="registros" dataKey="id" styleClass="p-datatable-sm" [rows]="10" [paginator]="false" [globalFilterFields]="['impresora.nombre', 'impresora.modelo', 'impresora.ip']">
+        <p-table #dt [value]="registros" dataKey="id" styleClass="p-datatable-sm" [rows]="10" [paginator]="false" [globalFilterFields]="['impresora.nombreimpresora', 'impresora.modeloimpresora', 'impresora.ipimpresora']">
             <ng-template pTemplate="caption">
                 <div class="p-d-flex p-ai-center p-jc-between">
                     <h5 class="p-m-0">Capturar Contadores</h5>
@@ -59,9 +66,9 @@
             </ng-template>
             <ng-template pTemplate="body" let-registro>
                 <tr>
-                    <td>{{registro.impresora.nombre}}</td>
-                    <td>{{registro.impresora.modelo}}</td>
-                    <td>{{registro.impresora.ip}}</td>
+                    <td>{{registro.impresora.nombreimpresora}}</td>
+                    <td>{{registro.impresora.modeloimpresora}}</td>
+                    <td>{{registro.impresora.ipimpresora}}</td>
                     <td>{{registro.contador109}}</td>
                     <td>{{registro.contador124}}</td>
                     <td>{{registro.contador102}}</td>
@@ -80,7 +87,7 @@
 </div>
 
 
-<p-dialog *ngIf="registro" [(visible)]="dialogo" [closable]="false" [header]="registro.impresora.nombre" [style]="{width: '650px'}" [modal]="true" styleClass="p-fluid">
+<p-dialog *ngIf="registro" [(visible)]="dialogo" [closable]="false" [header]="registro.impresora.nombreimpresora" [style]="{width: '650px'}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="p-fluid p-formgrid p-grid">
 

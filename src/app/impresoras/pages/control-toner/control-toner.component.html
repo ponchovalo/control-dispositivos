@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <div class="card">
-    <p-table #dt [value]="impresoras" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['nombreimpresora', 'modeloimpresora']">
+    <p-table #dt [value]="impresoras" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['nombreimpresora', 'modeloimpresora', 'ubicacionimpresora']">
 
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
@@ -98,7 +98,7 @@
 
 </p-dialog>
 
-<p-dialog [(visible)]="dialogoTabla" [style]="{width: '900px'}" header="Historial Cambios de Toner" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="dialogoTabla" [style]="{width: '900px'}" header="Historial Cambios de Toner" [modal]="true" styleClass="p-fluid" maximizable="true">
     <ng-template pTemplate="content">
         
             <p-table #dt [value]="impresora.cambios" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['fecha', 'usuario']">
@@ -143,10 +143,16 @@
 
 </p-dialog>
 
-<p-dialog [(visible)]="dialogEliminar" [style]="{width: '450px'}" header="Aviso" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="dialogEliminar" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid" closable="false">
     <ng-template pTemplate="content">
-        <div>
-            Se eliminara el registro con fecha del {{registro.fecha | date: 'dd MMMM yyyy' |titlecase }}  de la impresora {{impresora.nombreimpresora}}
+        <div class="p-text-center p-mt-2">
+            <i class="pi pi-exclamation-triangle"  style="font-size: 4rem; color: brown;"></i>
+        </div>
+        <div class="p-text-center p-my-4">
+            <h3>Aviso</h3>
+        </div>
+        <div class="p-text-center p-my-4">
+            Se eliminara el registro con fecha del {{registro.fecha | date: 'dd MMMM yyyy' |titlecase }}  de la impresora {{impresora.nombreimpresora}} <br><br>
             ¿Deseas Continuar?
         </div>
         
@@ -154,8 +160,8 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="No" icon="pi pi-times" class="p-button-text" (click)="cerrarDialogoEliminar()"></button>
-        <button pButton pRipple label="Ok" icon="pi pi-check" class="p-button-text" (click)="borrarRegistro()"></button>
+        <button pButton pRipple label="No" icon="pi pi-times" class="p-button-text p-button-danger" (click)="cerrarDialogoEliminar()"></button>
+        <button pButton pRipple label="Ok" icon="pi pi-check" class="p-button-text p-button-success" (click)="borrarRegistro()"></button>
     </ng-template>
 
 </p-dialog>

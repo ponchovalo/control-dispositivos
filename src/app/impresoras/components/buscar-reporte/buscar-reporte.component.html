@@ -19,6 +19,9 @@
 
 <div *ngIf="registros.length == 0" class="p-mt-2">
     <p-card>
+        <div class="p-text-center p-mt-2">
+            <i class="pi pi-exclamation-triangle"  style="font-size: 4rem; color: brown;"></i>
+        </div>
         <div class="p-text-center">
             <span *ngIf="!aviso">Ingrese una fecha para buscar un reporte</span>
             <span *ngIf="aviso">No existe reporte</span>

@@ -44,7 +44,7 @@ export class BuscarReporteComponent implements OnInit {
     .add(() => {
       console.log(this.registros)
       if(this.registros.length == 0){
-        this.messageService.add({severity:'warn', summary: 'Aviso', detail: `No hay reportes de ${this.meses[this.mesBuscar.getMonth() + 1]} del ${this.mesBuscar.getFullYear()}`, life: 3000});
+        this.messageService.add({severity:'warn', summary: 'Aviso', detail: `No hay reportes de ${this.meses[this.mesBuscar.getMonth()]} del ${this.mesBuscar.getFullYear()}`, life: 3000});
         this.aviso = true;
       }else{
         this.aviso = false;

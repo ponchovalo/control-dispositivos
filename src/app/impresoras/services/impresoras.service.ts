@@ -12,7 +12,7 @@ export class ImpresorasService {
     
     private urlBase: string = "http://localhost:54244/api/impresoras";
     private urlBaseToner: string = "http://localhost:54244/api/controltoner";
-    private urlBaseReporte: string = "http://localhost:8080/api/reporteimpresora";
+    private urlBaseReporte: string = "http://localhost:54244/api/reportemes";
     
 
     constructor(private http: HttpClient, 

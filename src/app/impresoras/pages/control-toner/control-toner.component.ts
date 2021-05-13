@@ -190,12 +190,13 @@ export class ControlTonerComponent implements OnInit {
   }
 
   borrarRegistro(){
-    let mes
+    let id = 0
     this.impresorasService.deleteRegistroToner(this.registro.idcontrol)
     .subscribe( registro => {
       this.messageService.add({severity:'success', summary: 'Se elimino con exito', detail: `Se elimino registro con fecha ${registro.fecha} `, life: 3000});
+      id = this.registro.idcontrol
       this.listarImpresorasControlToner();
-      this.impresora.cambios = this.impresora.cambios.filter(registro.idcontrol)
+      this.impresora.cambios = this.impresora.cambios.filter(e => e.idcontrol != id)
       this.cerrarDialogoEliminar();
     })
     console.log('Vas a Eliminar')

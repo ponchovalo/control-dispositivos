@@ -56,7 +56,7 @@ export class FormReporteComponent implements OnInit {
         impresoras => { this.impresoras = impresoras
           for (let i = 0; i < this.impresoras.length; i++) {
             let registro: RegistroReporte = {
-              id : 0,
+              idreporte : 0,
               contador109 : 0,
               contador124 : 0,
               contador102 : 0,
