@@ -9,7 +9,7 @@
                 <div class="p-grid p-mt-1">
                     <div class="p-field">
                         <label for="monthpicker" class="p-mx-2">Mes</label>
-                        <p-calendar [(ngModel)]="mesBuscar" class="p-mx-2" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
+                        <p-calendar [(ngModel)]="mesBuscar" (ngModelChange)="cambiarfecha()" class="p-mx-2" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
                     </div>
                     <div class="p-field" class="p-ml-6">
                         <button  pButton pRipple type="button" label="Generar Nuevo Reporte" class="p-button-outlined" (click)='generarReporte()'></button>
@@ -24,16 +24,17 @@
 </p-card>
 
 
-<p-messages *ngIf="mensajeGuardado" severity="info">
+<p-messages *ngIf="mensajeGuardado" severity="warning">
     <ng-template pTemplate>
-        <div class="p-field p-col-4 p-mt-4">
-            <span class="custom-message">I am the one who knocks.</span>
+        <div class="p-field p-col-6 p-mt-4">
+            <span class="custom-message">Reporte guardado localmente, </span><br>
+            <span class="custom-message">Para guardar en base de datos click en 'Cerrar'</span><br>
+            <span class="custom-message">Para seguir editando click en 'Continuar Reporte' </span>
         </div>
-        <div class="p-field p-col-6 p-mt-4 p-text-right" >
-            <button (click)="cerrarReporte()" pButton pRipple type="button" label="Cerrar" class="p-button-outlined"></button>
+        <div class="p-field p-col-4 p-mt-4 p-text-right" >
+            <button (click)="cerrarReporte()" pButton pRipple type="button" label="Cerrar" class="p-button-help p-button-outlined"></button>
         </div>
     </ng-template>
-    
 </p-messages>
 
 

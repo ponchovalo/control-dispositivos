@@ -74,3 +74,20 @@ export interface ReporteExcel {
     vpbyn?: number;
     vpcolor?: number;
 }
+
+export interface ReporteM {
+    nombre?: string,
+    registros?: RegistroReporte[]
+}
+
+export interface RegistroReporteM {
+    idreporte: number;
+    contador109: number;
+    contador124: number;
+    contador102: number;
+    impresora: number;
+    vpbyn: number;
+    vpcolor: number;
+    year: number;
+    month: number;
+}

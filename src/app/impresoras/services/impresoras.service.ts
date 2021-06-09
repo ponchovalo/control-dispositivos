@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FechaMes, Impresora, Registro, RegistroReporte } from '../interfaces/impresora.interface';
+import { FechaMes, Impresora, Registro, RegistroReporte, ReporteM } from '../interfaces/impresora.interface';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 
@@ -73,8 +73,9 @@ export class ImpresorasService {
       return this.http.get<RegistroReporte[]>(`${this.urlBaseReporte}/${fechames.year}/${fechames.month}`);
     }
 
-    crearReporte(registroReporte: RegistroReporte): Observable<RegistroReporte>{
-      return this.http.post<RegistroReporte>(this.urlBaseReporte, registroReporte);
+  
+    crearReporte(reporteM: ReporteM): Observable<ReporteM>{
+      return this.http.post<ReporteM>(`${this.urlBaseReporte}/crear`, reporteM);
     }
 
 

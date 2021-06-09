@@ -1,3 +1,48 @@
-<p-card>
-    <h2>Clear Cubes</h2>
-</p-card>
+<p-toast></p-toast>
+<div class="card">
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2"></button>
+        </div>
+    </p-toolbar>
+
+    <p-table #dt [value]="cubos" styleClass="p-datatable-sm" [rows]="10" [paginator]="true" [globalFilterFields]="['nombreimpresora', 'modeloimpresora', 'edificioimpresora','ipimpresora']">
+
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Inventario ClearCube</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"  (input) = "dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nombre</th>
+                <th>Modelo</th>
+                <th>Serie</th>
+                <th>IP</th>
+                <th>Edificio</th>
+                <th>Ubicacion</th>
+                <th></th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-impresora>
+            <tr>
+                <td>{{impresora.nombreimpresora}}</td>
+                <td>{{impresora.modeloimpresora}}</td>
+                <td>{{impresora.serieimpresora}}</td>
+                <td>{{impresora.ipimpresora}}</td>
+                <td>{{impresora.edificioimpresora}}</td>
+                <td>{{impresora.ubicacionimpresora}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
