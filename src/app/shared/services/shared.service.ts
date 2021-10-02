@@ -30,6 +30,10 @@ export class SharedService {
           {
             titulo: "Reportes",
             enlace: "/impresoras/reporte"
+          },
+          {
+            titulo: "Almacen",
+            enlace: "/impresoras/almacen"
           }
         ]
         break

@@ -91,3 +91,12 @@ export interface RegistroReporteM {
     year: number;
     month: number;
 }
+
+export interface Partida{
+    id: number;
+    noparte: string;
+    paramodelo: string;
+    categoria: string;
+    vidautil: string;
+    cantidad: number;
+}

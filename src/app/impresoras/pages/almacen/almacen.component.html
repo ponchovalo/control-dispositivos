@@ -1,0 +1,27 @@
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+   
+            <h4 class="p-mx-2 text-layout">Almacen Impresion</h4>
+            <button pButton type="button" label="Consulta" class="p-button-outlined p-mx-2" (click)="establecerOpcion('consulta')"></button>
+            <button pButton type="button" label="Entradas" class="p-button-success p-button-outlined p-mx-2" (click)="establecerOpcion('entradas')"></button>
+            <button pButton type="button" label="Salidas" class="p-button-danger p-button-outlined p-mx-2" (click)="establecerOpcion('salidas')"></button>
+            <button pButton type="button" label="Edicion" class="p-button-outlined p-mx-2" (click)="establecerOpcion('edicion')"></button>
+    </div>
+
+</p-toolbar>
+
+<div class="p-mt-2" *ngIf="inic" [ngSwitch]="opcion">
+
+    <app-almacen-consulta *ngSwitchCase="consulta"></app-almacen-consulta>
+    <app-almacen-entradas *ngSwitchCase="entradas"></app-almacen-entradas>
+    <app-almacen-salidas *ngSwitchCase="salidas"></app-almacen-salidas>
+    <app-almacen-edicion *ngSwitchCase="edicion"></app-almacen-edicion>
+ 
+</div>
+
+
+
+
+  
+
+

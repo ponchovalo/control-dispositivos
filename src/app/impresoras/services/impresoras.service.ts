@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FechaMes, Impresora, Registro, RegistroReporte, ReporteM } from '../interfaces/impresora.interface';
+import { FechaMes, Impresora, Registro, RegistroReporte, ReporteM, Partida } from '../interfaces/impresora.interface';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 
@@ -13,6 +13,7 @@ export class ImpresorasService {
     private urlBase: string = "http://localhost:54244/api/impresoras";
     private urlBaseToner: string = "http://localhost:54244/api/controltoner";
     private urlBaseReporte: string = "http://localhost:54244/api/reportemes";
+    private urlBaseAlmacen: string = "http://localhost:54244/api/almacenimpresion";
     
 
     constructor(private http: HttpClient, 
@@ -76,6 +77,11 @@ export class ImpresorasService {
   
     crearReporte(reporteM: ReporteM): Observable<ReporteM>{
       return this.http.post<ReporteM>(`${this.urlBaseReporte}/crear`, reporteM);
+    }
+
+    //Servicios Almacen
+    getPartidas(): Observable<Partida[]>{
+      return this.http.get<Partida[]>(`${this.urlBaseAlmacen}/listar`);
     }
 
 

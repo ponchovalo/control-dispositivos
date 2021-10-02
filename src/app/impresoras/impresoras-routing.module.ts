@@ -4,6 +4,7 @@ import { HomeImpresorasComponent } from './pages/home-impresoras/home-impresoras
 import { ListadoImpresorasComponent } from './pages/listado-impresoras/listado-impresoras.component';
 import { ControlTonerComponent } from './pages/control-toner/control-toner.component';
 import { ReporteImpresorasComponent } from './pages/reporte-impresoras/reporte-impresoras.component';
+import { AlmacenComponent } from './pages/almacen/almacen.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'reporte',
         component: ReporteImpresorasComponent
+      },
+      {
+        path: 'almacen',
+        component: AlmacenComponent
       },
       {
         path: '**',

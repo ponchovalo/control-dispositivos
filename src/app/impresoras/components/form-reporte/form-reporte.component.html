@@ -69,7 +69,12 @@
                 <tr>
                     <td>{{registro.impresora.nombreimpresora}}</td>
                     <td>{{registro.impresora.modeloimpresora}}</td>
-                    <td>{{registro.impresora.ipimpresora}}</td>
+                        <td *ngIf="registro.impresora.ipimpresora == 'USB' || registro.impresora.ipimpresora == 'STOCK' ; else porIP">{{registro.impresora.ipimpresora}}</td>
+                        <ng-template #porIP>
+                            <td>
+                                <a href="http://{{registro.impresora.ipimpresora}}" style="color:cyan; text-decoration: none;">{{registro.impresora.ipimpresora}}</a>
+                            </td>
+                        </ng-template>    
                     <td>{{registro.contador109}}</td>
                     <td>{{registro.contador124}}</td>
                     <td>{{registro.contador102}}</td>

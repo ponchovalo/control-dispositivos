@@ -16,6 +16,11 @@ import { ListadoReporteComponent } from './components/listado-reporte/listado-re
 import { ResumenReporteComponent } from './components/resumen-reporte/resumen-reporte.component';
 import { FormReporteComponent } from './components/form-reporte/form-reporte.component';
 import { BuscarReporteComponent } from './components/buscar-reporte/buscar-reporte.component';
+import { AlmacenComponent } from './pages/almacen/almacen.component';
+import { AlmacenConsultaComponent } from './components/almacen-consulta/almacen-consulta.component';
+import { AlmacenSalidasComponent } from './components/almacen-salidas/almacen-salidas.component';
+import { AlmacenEntradasComponent } from './components/almacen-entradas/almacen-entradas.component';
+import { AlmacenEdicionComponent } from './components/almacen-edicion/almacen-edicion.component';
 
 
 
@@ -28,7 +33,12 @@ import { BuscarReporteComponent } from './components/buscar-reporte/buscar-repor
     ListadoReporteComponent,
     ResumenReporteComponent,
     FormReporteComponent,
-    BuscarReporteComponent
+    BuscarReporteComponent,
+    AlmacenComponent,
+    AlmacenConsultaComponent,
+    AlmacenSalidasComponent,
+    AlmacenEntradasComponent,
+    AlmacenEdicionComponent
 
   ],
   imports: [
